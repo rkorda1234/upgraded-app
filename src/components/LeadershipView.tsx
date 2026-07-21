@@ -241,11 +241,19 @@ export default function LeadershipView({ onOpenChat, onExploreLearningPaths }: L
                         src={adrianaImgSrc}
                         onError={() => {
                           if (adrianaImgSrc === "/Adriana.png") {
+                            setAdrianaImgSrc("/Adriana.jpg");
+                          } else if (adrianaImgSrc === "/Adriana.jpg") {
+                            setAdrianaImgSrc("/Adriana.jpeg");
+                          } else if (adrianaImgSrc === "/Adriana.jpeg") {
                             setAdrianaImgSrc("/adriana.png");
                           } else if (adrianaImgSrc === "/adriana.png") {
+                            setAdrianaImgSrc("/adriana.jpg");
+                          } else if (adrianaImgSrc === "/adriana.jpg") {
+                            setAdrianaImgSrc("/adriana.jpeg");
+                          } else if (adrianaImgSrc === "/adriana.jpeg") {
                             setAdrianaImgSrc("/src/assets/images/Adriana.png");
                           } else if (adrianaImgSrc === "/src/assets/images/Adriana.png") {
-                            setAdrianaImgSrc("/src/assets/images/adriana.png");
+                            setAdrianaImgSrc("/src/assets/images/Adriana.jpg");
                           } else {
                             setAdrianaImgFailed(true);
                           }
