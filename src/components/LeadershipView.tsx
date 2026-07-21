@@ -22,13 +22,13 @@ interface LeadershipViewProps {
 }
 
 export default function LeadershipView({ onOpenChat, onExploreLearningPaths }: LeadershipViewProps) {
-  const [adrianaImgSrc, setAdrianaImgSrc] = useState("/src/assets/images/Adriana.png");
+  const [adrianaImgSrc, setAdrianaImgSrc] = useState("/Adriana.png");
   const [adrianaImgFailed, setAdrianaImgFailed] = useState(false);
 
-  const [enriqueImgSrc, setEnriqueImgSrc] = useState("/src/assets/images/Enrique (1).png");
+  const [enriqueImgSrc, setEnriqueImgSrc] = useState("/Enrique (1).png");
   const [enriqueImgFailed, setEnriqueImgFailed] = useState(false);
 
-  const [andresImgSrc, setAndresImgSrc] = useState("/src/assets/images/Andres.png");
+  const [andresImgSrc, setAndresImgSrc] = useState("/Andres.png");
   const [andresImgFailed, setAndresImgFailed] = useState(false);
   return (
     <div className="w-full flex flex-col">
@@ -240,7 +240,11 @@ export default function LeadershipView({ onOpenChat, onExploreLearningPaths }: L
                       <img
                         src={adrianaImgSrc}
                         onError={() => {
-                          if (adrianaImgSrc === "/src/assets/images/Adriana.png") {
+                          if (adrianaImgSrc === "/Adriana.png") {
+                            setAdrianaImgSrc("/adriana.png");
+                          } else if (adrianaImgSrc === "/adriana.png") {
+                            setAdrianaImgSrc("/src/assets/images/Adriana.png");
+                          } else if (adrianaImgSrc === "/src/assets/images/Adriana.png") {
                             setAdrianaImgSrc("/src/assets/images/adriana.png");
                           } else {
                             setAdrianaImgFailed(true);
@@ -333,7 +337,13 @@ export default function LeadershipView({ onOpenChat, onExploreLearningPaths }: L
                       <img
                         src={enriqueImgSrc}
                         onError={() => {
-                          if (enriqueImgSrc === "/src/assets/images/Enrique (1).png") {
+                          if (enriqueImgSrc === "/Enrique (1).png") {
+                            setEnriqueImgSrc("/Enrique.png");
+                          } else if (enriqueImgSrc === "/Enrique.png") {
+                            setEnriqueImgSrc("/enrique.png");
+                          } else if (enriqueImgSrc === "/enrique.png") {
+                            setEnriqueImgSrc("/src/assets/images/Enrique (1).png");
+                          } else if (enriqueImgSrc === "/src/assets/images/Enrique (1).png") {
                             setEnriqueImgSrc("/src/assets/images/Enrique.png");
                           } else if (enriqueImgSrc === "/src/assets/images/Enrique.png") {
                             setEnriqueImgSrc("/src/assets/images/enrique.png");
@@ -428,7 +438,15 @@ export default function LeadershipView({ onOpenChat, onExploreLearningPaths }: L
                       <img
                         src={andresImgSrc}
                         onError={() => {
-                          if (andresImgSrc === "/src/assets/images/Andres.png") {
+                          if (andresImgSrc === "/Andres.png") {
+                            setAndresImgSrc("/andres.png");
+                          } else if (andresImgSrc === "/andres.png") {
+                            setAndresImgSrc("/Andrés.png");
+                          } else if (andresImgSrc === "/Andrés.png") {
+                            setAndresImgSrc("/andrés.png");
+                          } else if (andresImgSrc === "/andrés.png") {
+                            setAndresImgSrc("/src/assets/images/Andres.png");
+                          } else if (andresImgSrc === "/src/assets/images/Andres.png") {
                             setAndresImgSrc("/src/assets/images/andres.png");
                           } else if (andresImgSrc === "/src/assets/images/andres.png") {
                             setAndresImgSrc("/src/assets/images/Andrés.png");
