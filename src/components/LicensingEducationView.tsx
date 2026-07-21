@@ -27,6 +27,11 @@ interface FAQItem {
 
 const FAQ_ITEMS: FAQItem[] = [
   {
+    id: "lic-faq-0",
+    question: "Which course is right for me?",
+    answer: "Whether you're earning your Florida real estate license, completing your first license renewal, maintaining your active license, or investing in your professional development, Upgraded offers learning paths designed for every stage of your career. Each course page explains who the program is intended for and any applicable eligibility requirements."
+  },
+  {
     id: "lic-faq-1",
     question: "Why choose Upgraded?",
     answer: "Because today's professionals need more than information. Our educational approach focuses on practical, relevant learning that evolves alongside the real estate industry, helping professionals develop the knowledge and skills that matter most."
@@ -91,12 +96,19 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
       <section className="relative pt-24 pb-28 px-6 overflow-hidden border-b border-gray-100">
         <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-30 pointer-events-none" />
         
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+        >
           
           {/* Hero text */}
-          <div className="lg:col-span-6 space-y-6 text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-gray-200 rounded-full shadow-sm text-xs font-semibold text-gray-400">
-              <span className="font-mono tracking-widest text-[9px] uppercase">State Accredited Curriculum</span>
+          <div className="lg:col-span-6 space-y-7 text-left">
+            <div className="inline-block mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 border border-emerald-200/80 rounded-full shadow-sm text-xs font-semibold text-emerald-600">
+                <span className="font-mono tracking-widest text-[9px] uppercase">State Accredited Curriculum</span>
+              </div>
             </div>
             
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-black font-display leading-[1.05]">
@@ -109,11 +121,11 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
             </p>
             
             <p className="text-gray-500 font-sans text-sm sm:text-base leading-relaxed">
-              Whether you're preparing to enter the real estate profession, completing your first license renewal, or maintaining an active Florida real estate license, Upgraded delivers engaging, practical educational experiences designed to support your professional development.
+              Whether you're preparing to enter the <span className="text-emerald-600 font-semibold">real estate profession</span>, completing your <span className="text-emerald-600 font-semibold">first license renewal</span>, or maintaining an <span className="text-emerald-600 font-semibold">active Florida real estate license</span>, Upgraded delivers engaging, practical educational experiences designed to support your professional development.
             </p>
             
             <p className="text-gray-500 font-sans text-sm sm:text-base leading-relaxed">
-              Our goal is to provide high-quality education that combines Florida licensing requirements with a modern learning experience.
+              Our goal is to provide <span className="text-emerald-600 font-semibold">high-quality education</span> that combines Florida licensing requirements with a modern learning experience.
             </p>
 
             <div className="pt-4 flex flex-wrap gap-4">
@@ -150,7 +162,7 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
             </div>
           </div>
 
-        </div>
+        </motion.div>
       </section>
 
       {/* 2. Our Licensing Programs Section */}
@@ -158,20 +170,34 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
         <div className="max-w-7xl mx-auto space-y-16">
           
           {/* Title block */}
-          <div className="text-center max-w-3xl mx-auto space-y-4">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-black bg-gray-50 border border-gray-200 px-3.5 py-1 rounded-full shadow-sm">
-              State approved paths
-            </span>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto space-y-4"
+          >
+            <div className="inline-block mb-6">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 border border-emerald-200 px-3.5 py-1 rounded-full shadow-sm">
+                State approved paths
+              </span>
+            </div>
             <h2 className="text-3xl sm:text-4xl font-semibold text-black tracking-tight leading-tight font-display">
               Our Licensing Programs
             </h2>
             <p className="text-gray-500 text-sm sm:text-base">
-              Education designed to support every stage of your Florida real estate career.
+              Education designed to support <span className="text-emerald-600 font-semibold">every stage</span> of your Florida real estate career.
             </p>
-          </div>
+          </motion.div>
 
           {/* Core Highlights Row */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto"
+          >
             {[
               { label: "63 Hours", action: "Launch Your Career." },
               { label: "45 Hours", action: "Protect Your First License." },
@@ -192,20 +218,27 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
                 <BookmarkCheck className="w-4 h-4 text-gray-300 group-hover:text-black transition-colors shrink-0" />
               </div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Course Details Cards */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pt-8">
             
             {/* Card 1: 63-Hour Pre-License */}
-            <div className="bg-white border border-gray-150 rounded-2xl p-8 flex flex-col justify-between hover:border-black transition-all duration-300 hover:shadow-[0_12px_30px_rgba(0,0,0,0.02)] group">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
+              whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(0,0,0,0.04)" }}
+              className="bg-white border border-gray-150 rounded-2xl p-8 flex flex-col justify-between hover:border-black transition-all duration-200 group cursor-pointer"
+            >
               <div className="space-y-6">
                 <div className="flex items-start justify-between">
-                  <div className="bg-gray-50 border border-gray-200 p-3 rounded-xl text-black">
+                  <div className="bg-gray-50 border border-gray-200 p-3 rounded-xl text-gray-700 group-hover:bg-emerald-50 group-hover:border-emerald-200 group-hover:text-emerald-600 transition-colors duration-200">
                     <GraduationCap className="w-6 h-6" />
                   </div>
                   <div className="text-right flex flex-col items-end gap-1.5">
-                    <span className="text-[9px] font-mono px-2 py-0.5 bg-yellow-100 text-yellow-800 rounded font-bold uppercase tracking-wider">
+                    <span className="text-[9px] font-mono px-2 py-0.5 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded font-bold uppercase tracking-wider">
                       Coming Soon
                     </span>
                     <span className="text-[10px] text-gray-400 font-mono font-medium">
@@ -215,11 +248,11 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
                 </div>
 
                 <div className="space-y-2">
-                  <h3 className="text-lg font-bold text-black tracking-tight font-display group-hover:text-neutral-800 transition-colors">
+                  <h3 className="text-lg font-bold text-black tracking-tight font-display group-hover:text-emerald-600 transition-colors duration-200">
                     63-Hour Florida Sales Associate Pre-License Course
                   </h3>
                   <p className="text-gray-500 text-xs sm:text-sm leading-relaxed">
-                    Start your real estate journey with a comprehensive Pre-License program designed to introduce the knowledge, principles, and professional practices required of Florida Sales Associates.
+                    Start your real estate journey with a comprehensive Pre-License program designed to introduce the <span className="text-emerald-600 font-semibold">knowledge</span>, <span className="text-emerald-600 font-semibold">principles</span>, and <span className="text-emerald-600 font-semibold">professional practices</span> required of Florida Sales Associates.
                   </p>
                 </div>
               </div>
@@ -227,23 +260,30 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
               <div className="pt-8 border-t border-gray-100 mt-8">
                 <button
                   onClick={() => alert("Registration for our 63-Hour Pre-License course will open soon following state approval. Leave your email in our system to be notified immediately.")}
-                  className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:underline cursor-pointer"
+                  className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:text-emerald-600 transition-colors duration-200"
                 >
                   Learn More
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 2: 45-Hour Post-License */}
-            <div className="bg-white border border-gray-150 rounded-2xl p-8 flex flex-col justify-between hover:border-black transition-all duration-300 hover:shadow-[0_12px_30px_rgba(0,0,0,0.02)] group">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
+              whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(0,0,0,0.04)" }}
+              className="bg-white border border-gray-150 rounded-2xl p-8 flex flex-col justify-between hover:border-black transition-all duration-200 group cursor-pointer"
+            >
               <div className="space-y-6">
                 <div className="flex items-start justify-between">
-                  <div className="bg-gray-50 border border-gray-200 p-3 rounded-xl text-black">
+                  <div className="bg-gray-50 border border-gray-200 p-3 rounded-xl text-gray-700 group-hover:bg-emerald-50 group-hover:border-emerald-200 group-hover:text-emerald-600 transition-colors duration-200">
                     <FileCheck className="w-6 h-6" />
                   </div>
                   <div className="text-right flex flex-col items-end gap-1.5">
-                    <span className="text-[9px] font-mono px-2 py-0.5 bg-green-50 text-green-700 border border-green-100 rounded font-bold uppercase tracking-wider flex items-center gap-1">
+                    <span className="text-[9px] font-mono px-2 py-0.5 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded font-bold uppercase tracking-wider flex items-center gap-1">
                       <Globe className="w-2.5 h-2.5" />
                       EN & ES
                     </span>
@@ -251,11 +291,11 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
                 </div>
 
                 <div className="space-y-2">
-                  <h3 className="text-lg font-bold text-black tracking-tight font-display group-hover:text-neutral-800 transition-colors">
+                  <h3 className="text-lg font-bold text-black tracking-tight font-display group-hover:text-emerald-600 transition-colors duration-200">
                     45-Hour Florida Post-License Course
                   </h3>
                   <p className="text-gray-500 text-xs sm:text-sm leading-relaxed">
-                    Complete your first license renewal requirement through a comprehensive Post-License program designed to reinforce professional knowledge while supporting your continued development as a real estate professional.
+                    Complete your <span className="text-emerald-600 font-semibold">first license renewal requirement</span> through a comprehensive Post-License program designed to reinforce professional knowledge while supporting your continued development.
                   </p>
                 </div>
               </div>
@@ -263,23 +303,30 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
               <div className="pt-8 border-t border-gray-100 mt-8">
                 <button
                   onClick={() => alert("Standard real estate enrollment workflow. Our 45-Hour course is fully active! Leave a prompt with our AI advisor or register inside your student portal.")}
-                  className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:underline cursor-pointer"
+                  className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:text-emerald-600 transition-colors duration-200"
                 >
                   Learn More
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 3: 14-Hour Continuing Ed */}
-            <div className="bg-white border border-gray-150 rounded-2xl p-8 flex flex-col justify-between hover:border-black transition-all duration-300 hover:shadow-[0_12px_30px_rgba(0,0,0,0.02)] group">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
+              whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(0,0,0,0.04)" }}
+              className="bg-white border border-gray-150 rounded-2xl p-8 flex flex-col justify-between hover:border-black transition-all duration-200 group cursor-pointer"
+            >
               <div className="space-y-6">
                 <div className="flex items-start justify-between">
-                  <div className="bg-gray-50 border border-gray-200 p-3 rounded-xl text-black">
+                  <div className="bg-gray-50 border border-gray-200 p-3 rounded-xl text-gray-700 group-hover:bg-emerald-50 group-hover:border-emerald-200 group-hover:text-emerald-600 transition-colors duration-200">
                     <Clock className="w-6 h-6" />
                   </div>
                   <div className="text-right flex flex-col items-end gap-1.5">
-                    <span className="text-[9px] font-mono px-2 py-0.5 bg-green-50 text-green-700 border border-green-100 rounded font-bold uppercase tracking-wider flex items-center gap-1">
+                    <span className="text-[9px] font-mono px-2 py-0.5 bg-emerald-50 text-emerald-600 border border-emerald-100 rounded font-bold uppercase tracking-wider flex items-center gap-1">
                       <Globe className="w-2.5 h-2.5" />
                       EN & ES
                     </span>
@@ -287,11 +334,11 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
                 </div>
 
                 <div className="space-y-2">
-                  <h3 className="text-lg font-bold text-black tracking-tight font-display group-hover:text-neutral-800 transition-colors">
+                  <h3 className="text-lg font-bold text-black tracking-tight font-display group-hover:text-emerald-600 transition-colors duration-200">
                     14-Hour Florida Continuing Education
                   </h3>
                   <p className="text-gray-500 text-xs sm:text-sm leading-relaxed">
-                    Complete your Florida Continuing Education requirements through an engaging online learning experience designed for licensed real estate professionals.
+                    Complete your Florida Continuing Education requirements through an <span className="text-emerald-600 font-semibold">engaging online learning experience</span> designed for active real estate professionals.
                   </p>
                 </div>
               </div>
@@ -299,13 +346,13 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
               <div className="pt-8 border-t border-gray-100 mt-8">
                 <button
                   onClick={() => alert("Our 14-Hour Continuing Education course provides seamless automated state sync. Inquire with our Advisor or sign in to begin immediately.")}
-                  className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:underline cursor-pointer"
+                  className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:text-emerald-600 transition-colors duration-200"
                 >
                   Learn More
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
-            </div>
+            </motion.div>
 
           </div>
 
@@ -317,7 +364,13 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Left: Support image */}
-          <div className="lg:col-span-5 order-last lg:order-first">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="lg:col-span-5 order-last lg:order-first"
+          >
             <div className="bg-white border border-gray-150 p-3 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.01)] hover:scale-[1.01] transition-transform duration-500">
               <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-100">
                 <img
@@ -328,27 +381,35 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
                 />
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right: Pitch copy */}
-          <div className="lg:col-span-7 space-y-6 text-left">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-black bg-white border border-gray-200 px-3 py-1 rounded-full shadow-sm">
-              Our Vision
-            </span>
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="lg:col-span-7 space-y-6 text-left"
+          >
+            <div className="inline-block mb-6">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full shadow-sm">
+                Our Vision
+              </span>
+            </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-black tracking-tight leading-tight font-display">
               A Different Approach to Licensing Education
             </h2>
             
             <p className="text-gray-800 text-sm sm:text-base font-bold font-sans">
-              Required education doesn't have to feel outdated.
+              Required education doesn't have to feel <span className="text-emerald-600 font-semibold">outdated</span>.
             </p>
 
             <p className="text-gray-500 text-sm sm:text-base leading-relaxed font-sans">
-              At Upgraded, we believe licensing education should be engaging, relevant, and designed for today's professionals.
+              At Upgraded, we believe licensing education should be <span className="text-emerald-600 font-semibold">engaging</span>, <span className="text-emerald-600 font-semibold">relevant</span>, and <span className="text-emerald-600 font-semibold">designed for today's professionals</span>.
             </p>
 
             <p className="text-gray-500 text-sm sm:text-base leading-relaxed font-sans">
-              Our goal is to create learning experiences that not only help professionals satisfy licensing requirements, but also continue developing the knowledge, professional judgment, and industry awareness needed throughout every stage of their careers.
+              Our goal is to create <span className="text-emerald-600 font-semibold">learning experiences</span> that not only help professionals satisfy licensing requirements, but also continue developing the <span className="text-emerald-600 font-semibold">knowledge, professional judgment, and industry awareness</span> needed throughout every stage of their careers.
             </p>
 
             <div className="pt-2">
@@ -359,26 +420,34 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </section>
 
       {/* 4. Everything You Need to Know FAQ Accordion Section */}
       <section className="py-24 px-6 bg-white border-b border-gray-100">
-        <div className="max-w-4xl mx-auto space-y-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto space-y-12"
+        >
           
           {/* Header block */}
           <div className="space-y-3 text-center max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-widest text-black bg-gray-50 px-3 py-1 rounded-full border border-gray-200 shadow-sm">
-              <HelpCircle className="w-3.5 h-3.5 text-gray-500" />
-              Everything You Need to Know
+            <div className="inline-block mb-6">
+              <div className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 shadow-sm">
+                <HelpCircle className="w-3.5 h-3.5 text-emerald-600" />
+                Everything You Need to Know
+              </div>
             </div>
             <h2 className="text-3xl sm:text-4xl font-semibold text-black tracking-tight font-display">
               Licensing Questions
             </h2>
             <p className="text-gray-500 text-xs sm:text-sm">
-              Detailed answers about our self-paced course syllabus, devices compatibility, and official Florida DBPR hours sync.
+              Detailed answers about our <span className="text-emerald-600 font-semibold">self-paced course syllabus</span>, <span className="text-emerald-600 font-semibold">device compatibility</span>, and <span className="text-emerald-600 font-semibold">official Florida DBPR hours sync</span>.
             </p>
           </div>
 
@@ -431,50 +500,66 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
             })}
           </div>
 
-        </div>
+        </motion.div>
       </section>
 
       {/* 5. Already Have Access? Section */}
       <section className="py-20 px-6 bg-[#FAFAFA] border-b border-gray-100">
-        <div className="max-w-3xl mx-auto bg-white border border-gray-150 rounded-3xl p-8 sm:p-10 space-y-6 text-center shadow-[0_12px_40px_rgba(0,0,0,0.01)]">
-          <div className="inline-flex items-center gap-1.5 text-[9px] font-mono font-bold uppercase tracking-widest text-black bg-gray-100 border border-gray-200 px-3 py-1 rounded-full">
-            Brokerage Partnership Access
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.98, y: 25 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto bg-white border border-gray-150 rounded-3xl p-8 sm:p-10 space-y-6 text-center shadow-[0_12px_40px_rgba(0,0,0,0.01)]"
+        >
+          <div className="inline-block mb-6">
+            <div className="inline-flex items-center gap-1.5 text-[9px] font-mono font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
+              Brokerage Partnership Access
+            </div>
           </div>
           <h3 className="text-xl sm:text-2xl font-bold text-black tracking-tight font-display">
             ALREADY HAVE ACCESS?
           </h3>
           <p className="text-gray-500 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto">
-            Certain brokerages may provide access to selected Upgraded educational programs as part of their professional development benefits.
+            Certain brokerages may provide access to selected Upgraded educational programs as part of their <span className="text-emerald-600 font-semibold">professional development benefits</span>.
           </p>
           <p className="text-gray-500 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto">
-            If you're an active Avanti Way agent, please verify your available course access before purchasing a course. If you have questions regarding your eligibility or access, please contact your office or our support team.
+            If you're an active <span className="text-black font-semibold underline decoration-emerald-400 decoration-2">Avanti Way</span> agent, please verify your available course access before purchasing a course. If you have questions regarding your eligibility or access, please contact your office or our support team.
           </p>
           <div className="pt-2">
             <button
               onClick={() => onOpenChat("I'm an active Avanti Way agent, how do I sync my licensing course credentials?")}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-black hover:underline cursor-pointer group"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-black hover:text-emerald-600 transition-colors cursor-pointer group"
             >
               Verify My Brokerage Access
               <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </button>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* 6. Ready to Get Started Section */}
       <section className="py-24 px-6 bg-white relative overflow-hidden">
         <div className="absolute top-[-100px] left-[-100px] w-[350px] h-[350px] bg-gradient-to-br from-blue-50/40 to-transparent rounded-full opacity-60 blur-3xl pointer-events-none" />
         
-        <div className="max-w-4xl mx-auto text-center space-y-10 relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl mx-auto text-center space-y-10 relative z-10"
+        >
           <div className="space-y-4">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-black bg-gray-50 px-3.5 py-1 rounded-full border border-gray-200">
-              Your Professional Upgrade
-            </span>
+            <div className="inline-block mb-6">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200 shadow-sm">
+                Your Professional Upgrade
+              </span>
+            </div>
             <h2 className="text-3xl sm:text-5xl font-semibold text-black tracking-tight leading-tight font-display">
               READY TO GET STARTED?
             </h2>
             <p className="text-gray-500 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-              Whether you're beginning your real estate career, maintaining your active license, or completing your first renewal requirement, Upgraded is here to support your next step.
+              Whether you're beginning your <span className="text-emerald-600 font-semibold">real estate career</span>, maintaining your <span className="text-emerald-600 font-semibold">active license</span>, or completing your <span className="text-emerald-600 font-semibold">first renewal requirement</span>, Upgraded is here to support your next step.
             </p>
           </div>
 
@@ -495,7 +580,7 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
               Helping real estate professionals stay ahead in a changing industry.
             </p>
           </div>
-        </div>
+        </motion.div>
       </section>
 
     </div>
