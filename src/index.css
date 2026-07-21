@@ -17,6 +17,27 @@ body {
   font-family: var(--font-sans);
 }
 
+@keyframes gradient-text-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-text {
+  background: linear-gradient(135deg, #2563eb, #8b5cf6, #db2777, #06b6d4, #2563eb);
+  background-size: 400% 400%;
+  animation: gradient-text-shift 8s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }

@@ -178,7 +178,7 @@ export default function ProfessionalDevelopmentView({ onOpenChat }: Professional
             <div className="space-y-6">
               <h3 className="text-xl sm:text-2xl font-bold text-black font-display tracking-tight leading-snug">
                 Information is everywhere. <br />
-                <span className="text-blue-600 font-semibold underline decoration-blue-300 decoration-2">Knowing what truly matters</span> is the advantage.
+                <span className="text-blue-600 font-semibold">Knowing what truly matters</span> is the advantage.
               </h3>
               <p className="text-gray-500 text-sm sm:text-base leading-relaxed">
                 The best professionals don't succeed because they consume more content. They succeed because they focus on learning the right things at the right time.

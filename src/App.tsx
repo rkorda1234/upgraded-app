@@ -1,8 +1,10 @@
 import { useState, useRef, RefObject, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useSpring, useTransform } from "motion/react";
+import { Helmet } from "react-helmet-async";
 import { 
   Sparkles, 
   ArrowRight, 
+  ArrowUp,
   BookOpen, 
   Compass, 
   HelpCircle, 
@@ -25,10 +27,11 @@ import GoogleReviewsWidget from "./components/GoogleReviewsWidget";
 import FAQAccordion from "./components/FAQAccordion";
 import LicensingEducationView from "./components/LicensingEducationView";
 import ProfessionalDevelopmentView from "./components/ProfessionalDevelopmentView";
+import LeadershipView from "./components/LeadershipView";
 import heroVisual from "./assets/images/upgraded_hero_visual_1784582864331.jpg";
 
 export default function App() {
-  const [activeView, setActiveView] = useState<'home' | 'licensing' | 'pro_dev'>('home');
+  const [activeView, setActiveView] = useState<'home' | 'licensing' | 'pro_dev' | 'leadership'>('home');
   const [showFloatingChat, setShowFloatingChat] = useState(false);
   const [chatInitialPrompt, setChatInitialPrompt] = useState<string | undefined>(undefined);
   const [subscribed, setSubscribed] = useState(false);
@@ -49,6 +52,14 @@ export default function App() {
   });
 
   const y = useTransform(smoothY, (value) => -value);
+
+  const [showBackToTop, setShowBackToTop] = useState(false);
+
+  useEffect(() => {
+    return scrollY.onChange((latest) => {
+      setShowBackToTop(latest > 300);
+    });
+  }, [scrollY]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -107,6 +118,41 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-[#111111] font-sans antialiased selection:bg-gray-100 selection:text-black relative overflow-x-hidden">
+      <Helmet>
+        {activeView === 'home' && (
+          <>
+            <title>Upgraded | Modern Real Estate Education & Licensing Academy</title>
+            <meta name="description" content="Upgraded provides premium DBPR-licensed real estate courses, advanced AI business frameworks, and professional development programs to help you stay ahead." />
+            <meta property="og:title" content="Upgraded | Modern Real Estate Education & Licensing Academy" />
+            <meta property="og:description" content="Upgraded provides premium DBPR-licensed real estate courses, advanced AI business frameworks, and professional development programs to help you stay ahead." />
+          </>
+        )}
+        {activeView === 'licensing' && (
+          <>
+            <title>Real Estate Licensing Education & Renewal | Upgraded Academy</title>
+            <meta name="description" content="Earn your Florida real estate license, complete your post-licensing requirements, or renew your active license with our fully compliant, self-paced courses." />
+            <meta property="og:title" content="Real Estate Licensing Education & Renewal | Upgraded Academy" />
+            <meta property="og:description" content="Earn your Florida real estate license, complete your post-licensing requirements, or renew your active license with our fully compliant, self-paced courses." />
+          </>
+        )}
+        {activeView === 'pro_dev' && (
+          <>
+            <title>Professional Development & Real Estate AI Blueprints | Upgraded</title>
+            <meta name="description" content="Explore advanced marketing strategies, AI toolkits, and business planning blueprints built specifically for high-performance modern agents." />
+            <meta property="og:title" content="Professional Development & Real Estate AI Blueprints | Upgraded" />
+            <meta property="og:description" content="Explore advanced marketing strategies, AI toolkits, and business planning blueprints built specifically for high-performance modern agents." />
+          </>
+        )}
+        {activeView === 'leadership' && (
+          <>
+            <title>Founding Team & Visionary Leadership | Upgraded Academy</title>
+            <meta name="description" content="Meet the founding team behind Upgraded Academy. Combining deep real estate expertise, education technology, and business innovation." />
+            <meta property="og:title" content="Founding Team & Visionary Leadership | Upgraded Academy" />
+            <meta property="og:description" content="Meet the founding team behind Upgraded Academy. Combining deep real estate expertise, education technology, and business innovation." />
+          </>
+        )}
+      </Helmet>
+
       {/* Spacer to make page scrollable based on content height */}
       <div style={{ height: pageHeight }} className="w-full pointer-events-none" />
 
@@ -166,10 +212,10 @@ export default function App() {
             </button>
             <button 
               onClick={() => {
-                setActiveView('home');
-                setTimeout(() => scrollToSection(approachRef), 100);
+                setActiveView('leadership');
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className={`hover:text-black transition-colors cursor-pointer text-left`}
+              className={`transition-colors cursor-pointer text-left ${activeView === 'leadership' ? 'text-black font-bold' : 'hover:text-black'}`}
             >
               LEADERSHIP
             </button>
@@ -232,7 +278,7 @@ export default function App() {
             className="text-[44px] sm:text-[64px] md:text-[76px] leading-[0.95] font-semibold tracking-tight text-black max-w-4xl mx-auto font-display"
           >
             Where Modern <br />
-            Agents <span className="text-gray-400 italic font-light">Upgrade</span> Themselves.
+            Agents <span className="animate-gradient-text italic font-extrabold">Upgrade</span> Themselves.
           </motion.h1>
 
           {/* Interactive dropdown component below the headline */}
@@ -425,8 +471,18 @@ export default function App() {
         </>
       ) : activeView === 'licensing' ? (
         <LicensingEducationView onOpenChat={handleOpenChatWithPrompt} />
-      ) : (
+      ) : activeView === 'pro_dev' ? (
         <ProfessionalDevelopmentView onOpenChat={handleOpenChatWithPrompt} />
+      ) : (
+        <LeadershipView 
+          onOpenChat={handleOpenChatWithPrompt} 
+          onExploreLearningPaths={() => {
+            setActiveView('home');
+            setTimeout(() => {
+              scrollToSection(learningPathsRef);
+            }, 100);
+          }}
+        />
       )}
 
       {/* 7. Beautiful Newsletter / Contact Footer Block */}
@@ -548,6 +604,24 @@ export default function App() {
         </div>
       </footer>
       </motion.div>
+
+      {/* Floating Back to Top Button in Lower Left */}
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="fixed bottom-6 left-6 z-50 p-3 bg-white text-black border border-gray-150 rounded-full shadow-[0_12px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:border-black transition-all cursor-pointer flex items-center justify-center group"
+            title="Back to Top"
+            id="back-to-top-button"
+          >
+            <ArrowUp className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
