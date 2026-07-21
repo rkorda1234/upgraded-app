@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "motion/react";
 import { 
   ArrowRight, 
@@ -22,6 +22,14 @@ interface LeadershipViewProps {
 }
 
 export default function LeadershipView({ onOpenChat, onExploreLearningPaths }: LeadershipViewProps) {
+  const [adrianaImgSrc, setAdrianaImgSrc] = useState("/src/assets/images/Adriana.png");
+  const [adrianaImgFailed, setAdrianaImgFailed] = useState(false);
+
+  const [enriqueImgSrc, setEnriqueImgSrc] = useState("/src/assets/images/Enrique (1).png");
+  const [enriqueImgFailed, setEnriqueImgFailed] = useState(false);
+
+  const [andresImgSrc, setAndresImgSrc] = useState("/src/assets/images/Andres.png");
+  const [andresImgFailed, setAndresImgFailed] = useState(false);
   return (
     <div className="w-full flex flex-col">
       
@@ -226,12 +234,27 @@ export default function LeadershipView({ onOpenChat, onExploreLearningPaths }: L
                     <Award className="w-7 h-7" />
                   </div>
 
-                  {/* High-fidelity Photo Headshot Placeholder */}
+                  {/* High-fidelity Photo Headshot with fallback */}
                   <div className="relative w-full aspect-square max-w-[200px] rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 via-gray-100/60 to-gray-50 border border-gray-150 flex flex-col items-center justify-center shadow-inner group/headshot">
-                    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:12px_12px] opacity-40" />
+                    {!adrianaImgFailed && (
+                      <img
+                        src={adrianaImgSrc}
+                        onError={() => {
+                          if (adrianaImgSrc === "/src/assets/images/Adriana.png") {
+                            setAdrianaImgSrc("/src/assets/images/adriana.png");
+                          } else {
+                            setAdrianaImgFailed(true);
+                          }
+                        }}
+                        alt="Adriana Rodriguez"
+                        className="w-full h-full object-cover rounded-2xl absolute inset-0 z-20"
+                        referrerPolicy="no-referrer"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:12px_12px] opacity-40 z-0" />
                     <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-red-500/[0.03] group-hover/headshot:scale-125 transition-transform duration-500" />
                     <div className="absolute -bottom-10 -left-10 w-28 h-28 rounded-full bg-red-500/[0.03] group-hover/headshot:scale-125 transition-transform duration-500" />
-                    <span className="font-display text-4xl font-extrabold text-red-600/20 group-hover/headshot:text-red-600/35 group-hover/headshot:scale-105 transition-all duration-300 select-none">
+                    <span className="font-display text-4xl font-extrabold text-red-600/20 group-hover/headshot:text-red-600/35 group-hover/headshot:scale-105 transition-all duration-300 select-none z-10">
                       AR
                     </span>
                     <span className="absolute bottom-3 text-[9px] font-mono tracking-widest text-gray-400 font-bold uppercase z-10 bg-white/80 border border-gray-100 px-2 py-0.5 rounded-full backdrop-blur-xs">
@@ -304,12 +327,29 @@ export default function LeadershipView({ onOpenChat, onExploreLearningPaths }: L
                     <TrendingUp className="w-7 h-7" />
                   </div>
 
-                  {/* High-fidelity Photo Headshot Placeholder */}
+                  {/* High-fidelity Photo Headshot with fallback */}
                   <div className="relative w-full aspect-square max-w-[200px] rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 via-gray-100/60 to-gray-50 border border-gray-150 flex flex-col items-center justify-center shadow-inner group/headshot">
-                    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:12px_12px] opacity-40" />
+                    {!enriqueImgFailed && (
+                      <img
+                        src={enriqueImgSrc}
+                        onError={() => {
+                          if (enriqueImgSrc === "/src/assets/images/Enrique (1).png") {
+                            setEnriqueImgSrc("/src/assets/images/Enrique.png");
+                          } else if (enriqueImgSrc === "/src/assets/images/Enrique.png") {
+                            setEnriqueImgSrc("/src/assets/images/enrique.png");
+                          } else {
+                            setEnriqueImgFailed(true);
+                          }
+                        }}
+                        alt="Enrique Terán"
+                        className="w-full h-full object-cover rounded-2xl absolute inset-0 z-20"
+                        referrerPolicy="no-referrer"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:12px_12px] opacity-40 z-0" />
                     <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-red-500/[0.03] group-hover/headshot:scale-125 transition-transform duration-500" />
                     <div className="absolute -bottom-10 -left-10 w-28 h-28 rounded-full bg-red-500/[0.03] group-hover/headshot:scale-125 transition-transform duration-500" />
-                    <span className="font-display text-4xl font-extrabold text-red-600/20 group-hover/headshot:text-red-600/35 group-hover/headshot:scale-105 transition-all duration-300 select-none">
+                    <span className="font-display text-4xl font-extrabold text-red-600/20 group-hover/headshot:text-red-600/35 group-hover/headshot:scale-105 transition-all duration-300 select-none z-10">
                       ET
                     </span>
                     <span className="absolute bottom-3 text-[9px] font-mono tracking-widest text-gray-400 font-bold uppercase z-10 bg-white/80 border border-gray-100 px-2 py-0.5 rounded-full backdrop-blur-xs">
@@ -382,12 +422,31 @@ export default function LeadershipView({ onOpenChat, onExploreLearningPaths }: L
                     <Briefcase className="w-7 h-7" />
                   </div>
 
-                  {/* High-fidelity Photo Headshot Placeholder */}
+                  {/* High-fidelity Photo Headshot with fallback */}
                   <div className="relative w-full aspect-square max-w-[200px] rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 via-gray-100/60 to-gray-50 border border-gray-150 flex flex-col items-center justify-center shadow-inner group/headshot">
-                    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:12px_12px] opacity-40" />
+                    {!andresImgFailed && (
+                      <img
+                        src={andresImgSrc}
+                        onError={() => {
+                          if (andresImgSrc === "/src/assets/images/Andres.png") {
+                            setAndresImgSrc("/src/assets/images/andres.png");
+                          } else if (andresImgSrc === "/src/assets/images/andres.png") {
+                            setAndresImgSrc("/src/assets/images/Andrés.png");
+                          } else if (andresImgSrc === "/src/assets/images/Andrés.png") {
+                            setAndresImgSrc("/src/assets/images/andrés.png");
+                          } else {
+                            setAndresImgFailed(true);
+                          }
+                        }}
+                        alt="Andrés Korda"
+                        className="w-full h-full object-cover rounded-2xl absolute inset-0 z-20"
+                        referrerPolicy="no-referrer"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:12px_12px] opacity-40 z-0" />
                     <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-red-500/[0.03] group-hover/headshot:scale-125 transition-transform duration-500" />
                     <div className="absolute -bottom-10 -left-10 w-28 h-28 rounded-full bg-red-500/[0.03] group-hover/headshot:scale-125 transition-transform duration-500" />
-                    <span className="font-display text-4xl font-extrabold text-red-600/20 group-hover/headshot:text-red-600/35 group-hover/headshot:scale-105 transition-all duration-300 select-none">
+                    <span className="font-display text-4xl font-extrabold text-red-600/20 group-hover/headshot:text-red-600/35 group-hover/headshot:scale-105 transition-all duration-300 select-none z-10">
                       AK
                     </span>
                     <span className="absolute bottom-3 text-[9px] font-mono tracking-widest text-gray-400 font-bold uppercase z-10 bg-white/80 border border-gray-100 px-2 py-0.5 rounded-full backdrop-blur-xs">
