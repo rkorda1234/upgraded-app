@@ -24,10 +24,11 @@ import HeroAnimation from "./components/HeroAnimation";
 import GoogleReviewsWidget from "./components/GoogleReviewsWidget";
 import FAQAccordion from "./components/FAQAccordion";
 import LicensingEducationView from "./components/LicensingEducationView";
+import ProfessionalDevelopmentView from "./components/ProfessionalDevelopmentView";
 import heroVisual from "./assets/images/upgraded_hero_visual_1784582864331.jpg";
 
 export default function App() {
-  const [activeView, setActiveView] = useState<'home' | 'licensing'>('home');
+  const [activeView, setActiveView] = useState<'home' | 'licensing' | 'pro_dev'>('home');
   const [showFloatingChat, setShowFloatingChat] = useState(false);
   const [chatInitialPrompt, setChatInitialPrompt] = useState<string | undefined>(undefined);
   const [subscribed, setSubscribed] = useState(false);
@@ -156,10 +157,10 @@ export default function App() {
             </button>
             <button 
               onClick={() => {
-                setActiveView('home');
-                setTimeout(() => scrollToSection(learningPathsRef), 100);
+                setActiveView('pro_dev');
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className={`hover:text-black transition-colors cursor-pointer text-left`}
+              className={`transition-colors cursor-pointer text-left ${activeView === 'pro_dev' ? 'text-black font-bold' : 'hover:text-black'}`}
             >
               PROFESSIONAL DEVELOPMENT
             </button>
@@ -422,8 +423,10 @@ export default function App() {
       {/* FAQ Accordion Section */}
       <FAQAccordion />
         </>
-      ) : (
+      ) : activeView === 'licensing' ? (
         <LicensingEducationView onOpenChat={handleOpenChatWithPrompt} />
+      ) : (
+        <ProfessionalDevelopmentView onOpenChat={handleOpenChatWithPrompt} />
       )}
 
       {/* 7. Beautiful Newsletter / Contact Footer Block */}
@@ -466,8 +469,8 @@ export default function App() {
               <li>
                 <button 
                   onClick={() => {
-                    setActiveView('home');
-                    setTimeout(() => scrollToSection(learningPathsRef), 100);
+                    setActiveView('licensing');
+                    window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
                   className="hover:text-white transition-colors cursor-pointer text-left text-gray-400"
                 >
@@ -477,8 +480,8 @@ export default function App() {
               <li>
                 <button 
                   onClick={() => {
-                    setActiveView('home');
-                    setTimeout(() => scrollToSection(learningPathsRef), 100);
+                    setActiveView('licensing');
+                    window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
                   className="hover:text-white transition-colors cursor-pointer text-left text-gray-400"
                 >
@@ -488,8 +491,8 @@ export default function App() {
               <li>
                 <button 
                   onClick={() => {
-                    setActiveView('home');
-                    setTimeout(() => scrollToSection(learningPathsRef), 100);
+                    setActiveView('licensing');
+                    window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
                   className="hover:text-white transition-colors cursor-pointer text-left text-gray-400"
                 >
@@ -499,8 +502,8 @@ export default function App() {
               <li>
                 <button 
                   onClick={() => {
-                    setActiveView('home');
-                    setTimeout(() => scrollToSection(learningPathsRef), 100);
+                    setActiveView('pro_dev');
+                    window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
                   className="hover:text-white transition-colors cursor-pointer text-left text-gray-400"
                 >
