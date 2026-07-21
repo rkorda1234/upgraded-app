@@ -36,6 +36,7 @@ export default function App() {
   const [showFloatingChat, setShowFloatingChat] = useState(false);
   const [chatInitialPrompt, setChatInitialPrompt] = useState<string | undefined>(undefined);
   const [subscribed, setSubscribed] = useState(false);
+  const [activePolicy, setActivePolicy] = useState<string | null>(null);
   
   const learningPathsRef = useRef<HTMLDivElement | null>(null);
   const approachRef = useRef<HTMLDivElement | null>(null);
@@ -505,124 +506,278 @@ export default function App() {
         />
       )}
 
-      {/* 7. Beautiful Newsletter / Contact Footer Block */}
-      <footer className="bg-black text-gray-400 py-20 px-6 relative border-t border-neutral-900">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+      {/* 7. Beautiful Global Footer */}
+      <footer className="bg-black text-gray-400 py-20 px-6 relative border-t border-neutral-900 font-sans">
+        <div className="max-w-7xl mx-auto space-y-16">
           
-          <div className="col-span-1 md:col-span-5 space-y-6 text-left">
-            <div 
-              className="flex items-center gap-1.5 cursor-pointer select-none" 
-              onClick={() => {
-                setActiveView('home');
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-            >
-              <span className="text-2xl font-black tracking-tight text-white font-sans flex items-center">
-                Upgr
-                <span className="inline-block mx-[0.5px] text-white">
-                  <svg className="w-[18px] h-[18px] transform rotate-[-15deg] translate-y-[-1.5px]" viewBox="0 0 100 100" fill="currentColor">
-                    <path d="M50 12 L88 88 L50 68 L12 88 Z" />
-                  </svg>
-                </span>
-                ded
-              </span>
-            </div>
+          {/* Main Footer Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12 items-start">
             
-            <p className="text-xs text-gray-400 max-w-sm leading-relaxed">
-              Where Modern Agents Upgrade Themselves. Bridging official Florida DBPR-compliant licensing education with cutting-edge real-world systems, AI marketing, and scalable business planning.
-            </p>
-
-            <div className="text-[10px] font-mono text-gray-600 leading-relaxed">
-              © {new Date().getFullYear()} Upgraded Real Estate Education. All rights reserved. <br />
-              Florida State DBPR Approved Real Estate Platform.
-            </div>
-          </div>
-
-          {/* Quick links */}
-          <div className="col-span-1 md:col-span-3 space-y-4 text-left">
-            <h4 className="text-white text-[10px] font-mono uppercase tracking-widest font-semibold">Curriculum paths</h4>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <button 
-                  onClick={() => {
-                    setActiveView('licensing');
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                  className="hover:text-white transition-colors cursor-pointer text-left text-gray-400"
-                >
-                  63-Hour Florida Pre-License
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => {
-                    setActiveView('licensing');
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                  className="hover:text-white transition-colors cursor-pointer text-left text-gray-400"
-                >
-                  14-Hour Florida CE Renewal
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => {
-                    setActiveView('licensing');
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                  className="hover:text-white transition-colors cursor-pointer text-left text-gray-400"
-                >
-                  45-Hour Florida Post-License
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => {
-                    setActiveView('pro_dev');
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  }}
-                  className="hover:text-white transition-colors cursor-pointer text-left text-gray-400"
-                >
-                  AI for Real Estate Professionals
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Newsletter signup */}
-          <div className="col-span-1 md:col-span-4 space-y-4 text-left">
-            <h4 className="text-white text-[10px] font-mono uppercase tracking-widest font-semibold font-sans">Newsletter</h4>
-            <p className="text-xs text-gray-500 leading-relaxed">
-              Subscribe to get notified about upcoming Florida Pre-Licensing cohorts, law adjustments, and AI real estate prompt packages.
-            </p>
-            
-            {subscribed ? (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="bg-neutral-900 border border-neutral-800 p-4 rounded-xl text-white text-xs font-mono font-bold flex items-center gap-2"
+            {/* Brand Slogan */}
+            <div className="lg:col-span-4 space-y-5 text-left">
+              <div 
+                className="flex items-center gap-1.5 cursor-pointer select-none" 
+                onClick={() => {
+                  setActiveView('home');
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
               >
-                <div className="w-2 h-2 bg-white rounded-full animate-ping" />
-                ✓ Joined Upgraded waitlist successfully
-              </motion.div>
-            ) : (
-              <div className="flex gap-2 bg-neutral-900 border border-neutral-800 p-1.5 rounded-xl">
-                <input
-                  type="email"
-                  placeholder="Enter email address"
-                  className="bg-transparent border-0 text-white placeholder-gray-600 text-xs px-3 focus:outline-none focus:ring-0 flex-1 min-w-0"
-                />
-                <button
-                  onClick={() => setSubscribed(true)}
-                  className="px-4 py-2 bg-white hover:bg-neutral-100 text-black font-semibold rounded-lg text-xs transition-all cursor-pointer font-sans shrink-0"
-                >
-                  Join Waitlist
-                </button>
+                <span className="text-2xl font-black tracking-tight text-white font-sans flex items-center">
+                  Upgr
+                  <span className="inline-block mx-[0.5px] text-white">
+                    <svg className="w-[18px] h-[18px] transform rotate-[-15deg] translate-y-[-1.5px]" viewBox="0 0 100 100" fill="currentColor">
+                      <path d="M50 12 L88 88 L50 68 L12 88 Z" />
+                    </svg>
+                  </span>
+                  ded
+                </span>
               </div>
-            )}
+              <div className="space-y-3">
+                <p className="text-sm font-bold text-neutral-200 font-display">
+                  Where Modern Agents Upgrade Themselves.
+                </p>
+                <p className="text-xs text-neutral-400 leading-relaxed max-w-sm">
+                  Helping real estate professionals stay ahead in a changing industry.
+                </p>
+              </div>
+            </div>
+
+            {/* Navigation Column */}
+            <div className="lg:col-span-2 space-y-4 text-left">
+              <h4 className="text-white text-[10px] font-mono uppercase tracking-widest font-bold">
+                Navigation
+              </h4>
+              <ul className="space-y-2.5 text-xs">
+                <li>
+                  <button 
+                    onClick={() => {
+                      setActiveView('home');
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className={`transition-colors cursor-pointer text-left ${activeView === 'home' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
+                  >
+                    Home
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => {
+                      setActiveView('licensing');
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className={`transition-colors cursor-pointer text-left ${activeView === 'licensing' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
+                  >
+                    Licensing Education
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => {
+                      setActiveView('pro_dev');
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className={`transition-colors cursor-pointer text-left ${activeView === 'pro_dev' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
+                  >
+                    Professional Development
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => {
+                      setActiveView('leadership');
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className={`transition-colors cursor-pointer text-left ${activeView === 'leadership' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
+                  >
+                    Leadership
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => {
+                      setActiveView('contact');
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className={`transition-colors cursor-pointer text-left ${activeView === 'contact' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
+                  >
+                    Contact Us
+                  </button>
+                </li>
+                <li>
+                  <a 
+                    href="https://learn.upgradedreacademy.com/login"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-white transition-colors block"
+                  >
+                    Student Login
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact Column */}
+            <div className="lg:col-span-3 space-y-4 text-left">
+              <h4 className="text-white text-[10px] font-mono uppercase tracking-widest font-bold">
+                Contact
+              </h4>
+              <div className="space-y-3 text-xs">
+                <div className="space-y-1">
+                  <p className="text-[10px] font-mono text-neutral-500 uppercase font-bold tracking-wider">
+                    Email
+                  </p>
+                  <a 
+                    href="mailto:adriana@upgradedreacademy.com" 
+                    className="text-gray-300 hover:text-white font-medium hover:underline block"
+                  >
+                    adriana@upgradedreacademy.com
+                  </a>
+                </div>
+                <p className="text-neutral-400 text-[11px] leading-relaxed">
+                  For general inquiries, enrollment assistance, student support, or partnership opportunities, our team is here to help.
+                </p>
+              </div>
+            </div>
+
+            {/* Policies Column */}
+            <div className="lg:col-span-3 space-y-4 text-left">
+              <h4 className="text-white text-[10px] font-mono uppercase tracking-widest font-bold">
+                Policies
+              </h4>
+              <ul className="space-y-2.5 text-xs text-gray-400">
+                {[
+                  "Student Policies",
+                  "Course Purchase & Refund Policy",
+                  "Privacy Policy",
+                  "Terms & Conditions",
+                  "Accessibility Statement",
+                  "Cookie Policy"
+                ].map((policy) => (
+                  <li key={policy}>
+                    <button
+                      onClick={() => setActivePolicy(policy)}
+                      className="hover:text-white transition-colors cursor-pointer text-left"
+                    >
+                      {policy}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
           </div>
+
+          {/* School Information Block */}
+          <div className="border-t border-neutral-900 pt-10 grid grid-cols-1 md:grid-cols-12 gap-8 text-left">
+            <div className="md:col-span-5 space-y-3">
+              <h4 className="text-white text-[10px] font-mono uppercase tracking-widest font-bold">
+                School Information
+              </h4>
+              <div className="space-y-1">
+                <p className="text-sm font-bold text-white font-display">
+                  Upgraded Real Estate School
+                </p>
+                <p className="text-xs text-neutral-300 font-medium">
+                  Licensed Florida Real Estate School
+                </p>
+                <p className="text-[10px] font-mono text-neutral-500 font-bold tracking-wide">
+                  Florida School License #ZH1002624
+                </p>
+              </div>
+            </div>
+
+            <div className="md:col-span-7 text-[11px] leading-relaxed text-neutral-500 space-y-3 max-w-2xl font-sans">
+              <p>
+                Licensed education is provided by <strong className="text-neutral-400">Upgraded Real Estate School</strong>. Enrollment and payment processing are managed by <strong className="text-neutral-400">Upgraded Real Estate Academy, LLC</strong>.
+              </p>
+              <p>
+                Upgraded Real Estate Academy provides online real estate education. Course approval status, credit eligibility, and applicable licensing requirements are determined by the Florida Department of Business and Professional Regulation (DBPR).
+              </p>
+              <p>
+                Prospective students are encouraged to verify that the selected course meets their individual licensing requirements before enrolling. All educational programs are delivered online unless otherwise stated. No in-person instruction is provided.
+              </p>
+            </div>
+          </div>
+
+          {/* Copyright & Maker Credits */}
+          <div className="border-t border-neutral-900 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] font-mono text-neutral-600">
+            <p>
+              © 2026 Upgraded Real Estate Academy, LLC. All Rights Reserved.
+            </p>
+            <p className="flex items-center gap-1">
+              <span>Designed & Developed by</span>
+              <a 
+                href="https://marketingverse.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-neutral-400 hover:text-white transition-colors font-bold"
+              >
+                Marketingverse
+              </a>
+            </p>
+          </div>
+
         </div>
       </footer>
+
+      {/* Interactive Policy Modal Overlay */}
+      <AnimatePresence>
+        {activePolicy && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActivePolicy(null)}
+              className="absolute inset-0 bg-black cursor-pointer"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ type: "spring", duration: 0.4 }}
+              className="relative bg-white border border-gray-150 rounded-2xl w-full max-w-lg p-6 sm:p-8 space-y-4 shadow-2xl text-left z-10"
+            >
+              <div className="space-y-1">
+                <span className="text-[9px] font-mono font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
+                  Document / Policy Review
+                </span>
+                <h3 className="text-xl font-bold text-black font-display tracking-tight pt-1">
+                  {activePolicy}
+                </h3>
+              </div>
+              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-sans">
+                {activePolicy === "Student Policies" && (
+                  "We are committed to providing an exceptional learning environment. Students are expected to complete their coursework honestly, participate actively, and respect instructors and peers in all digital forums. In accordance with DBPR regulations, identity verification is required at various intervals throughout the course programs."
+                )}
+                {activePolicy === "Course Purchase & Refund Policy" && (
+                  "All course purchases are subject to a 7-day satisfaction guarantee, provided that the student has completed less than 10% of the course modules. If these conditions are met, a full refund can be requested by emailing support. After 7 days or 10% completion, all sales are final."
+                )}
+                {activePolicy === "Privacy Policy" && (
+                  "Your privacy is of utmost importance to us. Upgraded Real Estate Academy collects only essential student information (such as name, email, phone number, and licensing details) to register you for courses, provide licensing credit updates, and comply with state DBPR guidelines. We never sell your personal information."
+                )}
+                {activePolicy === "Terms & Conditions" && (
+                  "By enrolling in Upgraded Real Estate Academy courses, you agree to comply with all student guidelines, complete all required modules yourself, and understand that credit eligibility is contingent upon successful course completion and state exam compliance rules."
+                )}
+                {activePolicy === "Accessibility Statement" && (
+                  "We are dedicated to ensuring digital accessibility for all students. We continually improve the user experience for everyone, applying relevant accessibility standards (WCAG 2.1 Level AA) to our learning platforms."
+                )}
+                {activePolicy === "Cookie Policy" && (
+                  "We use essential cookies to manage your login session, track course progress, and maintain platform security. By continuing to use our website, you consent to our use of these technical cookies."
+                )}
+              </p>
+              <div className="pt-2 flex justify-end">
+                <button
+                  onClick={() => setActivePolicy(null)}
+                  className="bg-black hover:bg-neutral-900 text-white font-semibold text-xs rounded-xl px-5 py-2.5 cursor-pointer transition-colors"
+                >
+                  Close Document
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
       </motion.div>
 
       {/* Floating Back to Top Button in Lower Left */}
