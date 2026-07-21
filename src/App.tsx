@@ -28,10 +28,11 @@ import FAQAccordion from "./components/FAQAccordion";
 import LicensingEducationView from "./components/LicensingEducationView";
 import ProfessionalDevelopmentView from "./components/ProfessionalDevelopmentView";
 import LeadershipView from "./components/LeadershipView";
+import ContactView from "./components/ContactView";
 import heroVisual from "./assets/images/upgraded_hero_visual_1784582864331.jpg";
 
 export default function App() {
-  const [activeView, setActiveView] = useState<'home' | 'licensing' | 'pro_dev' | 'leadership'>('home');
+  const [activeView, setActiveView] = useState<'home' | 'licensing' | 'pro_dev' | 'leadership' | 'contact'>('home');
   const [showFloatingChat, setShowFloatingChat] = useState(false);
   const [chatInitialPrompt, setChatInitialPrompt] = useState<string | undefined>(undefined);
   const [subscribed, setSubscribed] = useState(false);
@@ -151,6 +152,14 @@ export default function App() {
             <meta property="og:description" content="Meet the founding team behind Upgraded Academy. Combining deep real estate expertise, education technology, and business innovation." />
           </>
         )}
+        {activeView === 'contact' && (
+          <>
+            <title>Contact Our Team | Upgraded Academy</title>
+            <meta name="description" content="Have questions about Florida real estate licensing, course enrollment, or professional development? Connect with our team today." />
+            <meta property="og:title" content="Contact Our Team | Upgraded Academy" />
+            <meta property="og:description" content="Have questions about Florida real estate licensing, course enrollment, or professional development? Connect with our team today." />
+          </>
+        )}
       </Helmet>
 
       {/* Spacer to make page scrollable based on content height */}
@@ -221,10 +230,10 @@ export default function App() {
             </button>
             <button 
               onClick={() => {
-                setActiveView('home');
-                setTimeout(() => scrollToElement('footer'), 100);
+                setActiveView('contact');
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className={`hover:text-black transition-colors cursor-pointer text-left`}
+              className={`transition-colors cursor-pointer text-left ${activeView === 'contact' ? 'text-black font-bold' : 'hover:text-black'}`}
             >
               CONTACT
             </button>
@@ -475,10 +484,19 @@ export default function App() {
         <LicensingEducationView onOpenChat={handleOpenChatWithPrompt} />
       ) : activeView === 'pro_dev' ? (
         <ProfessionalDevelopmentView onOpenChat={handleOpenChatWithPrompt} />
-      ) : (
+      ) : activeView === 'leadership' ? (
         <LeadershipView 
           onOpenChat={handleOpenChatWithPrompt} 
           onExploreLearningPaths={() => {
+            setActiveView('home');
+            setTimeout(() => {
+              scrollToSection(learningPathsRef);
+            }, 100);
+          }}
+        />
+      ) : (
+        <ContactView 
+          onExploreCourses={() => {
             setActiveView('home');
             setTimeout(() => {
               scrollToSection(learningPathsRef);

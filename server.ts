@@ -33,6 +33,52 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
+// API Google Reviews proxy endpoint
+app.get("/api/google-reviews", async (req: express.Request, res: express.Response) => {
+  try {
+    const { placeId } = req.query;
+
+    if (!placeId || typeof placeId !== "string") {
+      res.status(400).json({ error: "placeId query parameter is required." });
+      return;
+    }
+
+    const mapsApiKey = process.env.GOOGLE_MAPS_PLATFORM_KEY || process.env.GOOGLE_MAPS_API_KEY;
+
+    if (!mapsApiKey) {
+      res.status(400).json({ 
+        error: "Google Maps API Key is not configured on the server. Please define GOOGLE_MAPS_PLATFORM_KEY in your environment variables." 
+      });
+      return;
+    }
+
+    const response = await fetch(
+      `https://places.googleapis.com/v1/places/${placeId}?key=${mapsApiKey}`,
+      {
+        headers: {
+          "X-Goog-FieldMask": "reviews,rating,userRatingCount,displayName,formattedAddress",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const errText = await response.text();
+      res.status(response.status).json({ 
+        error: `Google Places API returned an error: ${response.statusText}`, 
+        details: errText 
+      });
+      return;
+    }
+
+    const data = await response.json();
+    res.json(data);
+  } catch (error: any) {
+    console.error("Error fetching Google Reviews:", error);
+    res.status(500).json({ error: error.message || "An error occurred while fetching reviews from Google." });
+  }
+});
+
 // API chat endpoint using recommended @google/genai SDK
 app.post("/api/chat", async (req: express.Request, res: express.Response) => {
   try {
