@@ -228,12 +228,14 @@ export default function App() {
             >
               CONTACT
             </button>
-            <button 
-              onClick={() => alert("Upgraded Student Portal: Secure sandbox environment verified. Standard student sign-in is coming soon.")}
+            <a 
+              href="https://learn.upgradedreacademy.com/login"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-black transition-colors cursor-pointer text-left text-black font-extrabold"
             >
               STUDENT LOGIN
-            </button>
+            </a>
           </div>
 
           {/* Action Header Button */}

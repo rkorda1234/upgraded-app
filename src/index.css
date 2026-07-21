@@ -35,6 +35,9 @@ body {
   animation: gradient-text-shift 8s ease infinite;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  display: inline-block;
+  padding-right: 0.15em;
+  margin-right: -0.05em;
 }
 
 

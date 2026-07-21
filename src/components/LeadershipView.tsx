@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 // Image references
+import leadershipHeroImg from "../assets/images/leadership_hero_1784660032593.jpg";
 import licensingHeroImg from "../assets/images/licensing_hero_1784649720836.jpg";
 import agentsCollaboratingImg from "../assets/images/agents_collaborating_1784649734023.jpg";
 
@@ -90,7 +91,7 @@ export default function LeadershipView({ onOpenChat, onExploreLearningPaths }: L
               <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-900">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent z-10" />
                 <img
-                  src={licensingHeroImg}
+                  src={leadershipHeroImg}
                   alt="Upgraded Leadership Visionaries"
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"
@@ -224,6 +225,20 @@ export default function LeadershipView({ onOpenChat, onExploreLearningPaths }: L
                   <div className="inline-flex items-center justify-center w-14 h-14 bg-red-50 text-red-600 rounded-2xl border border-red-100 shadow-sm">
                     <Award className="w-7 h-7" />
                   </div>
+
+                  {/* High-fidelity Photo Headshot Placeholder */}
+                  <div className="relative w-full aspect-square max-w-[200px] rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 via-gray-100/60 to-gray-50 border border-gray-150 flex flex-col items-center justify-center shadow-inner group/headshot">
+                    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:12px_12px] opacity-40" />
+                    <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-red-500/[0.03] group-hover/headshot:scale-125 transition-transform duration-500" />
+                    <div className="absolute -bottom-10 -left-10 w-28 h-28 rounded-full bg-red-500/[0.03] group-hover/headshot:scale-125 transition-transform duration-500" />
+                    <span className="font-display text-4xl font-extrabold text-red-600/20 group-hover/headshot:text-red-600/35 group-hover/headshot:scale-105 transition-all duration-300 select-none">
+                      AR
+                    </span>
+                    <span className="absolute bottom-3 text-[9px] font-mono tracking-widest text-gray-400 font-bold uppercase z-10 bg-white/80 border border-gray-100 px-2 py-0.5 rounded-full backdrop-blur-xs">
+                      [ PHOTO ]
+                    </span>
+                  </div>
+
                   <div>
                     <h3 className="text-2xl font-black text-black tracking-tight font-display">
                       Adriana Rodriguez
@@ -288,6 +303,20 @@ export default function LeadershipView({ onOpenChat, onExploreLearningPaths }: L
                   <div className="inline-flex items-center justify-center w-14 h-14 bg-red-50 text-red-600 rounded-2xl border border-red-100 shadow-sm">
                     <TrendingUp className="w-7 h-7" />
                   </div>
+
+                  {/* High-fidelity Photo Headshot Placeholder */}
+                  <div className="relative w-full aspect-square max-w-[200px] rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 via-gray-100/60 to-gray-50 border border-gray-150 flex flex-col items-center justify-center shadow-inner group/headshot">
+                    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:12px_12px] opacity-40" />
+                    <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-red-500/[0.03] group-hover/headshot:scale-125 transition-transform duration-500" />
+                    <div className="absolute -bottom-10 -left-10 w-28 h-28 rounded-full bg-red-500/[0.03] group-hover/headshot:scale-125 transition-transform duration-500" />
+                    <span className="font-display text-4xl font-extrabold text-red-600/20 group-hover/headshot:text-red-600/35 group-hover/headshot:scale-105 transition-all duration-300 select-none">
+                      ET
+                    </span>
+                    <span className="absolute bottom-3 text-[9px] font-mono tracking-widest text-gray-400 font-bold uppercase z-10 bg-white/80 border border-gray-100 px-2 py-0.5 rounded-full backdrop-blur-xs">
+                      [ PHOTO ]
+                    </span>
+                  </div>
+
                   <div>
                     <h3 className="text-2xl font-black text-black tracking-tight font-display">
                       Enrique Terán
@@ -352,6 +381,20 @@ export default function LeadershipView({ onOpenChat, onExploreLearningPaths }: L
                   <div className="inline-flex items-center justify-center w-14 h-14 bg-red-50 text-red-600 rounded-2xl border border-red-100 shadow-sm">
                     <Briefcase className="w-7 h-7" />
                   </div>
+
+                  {/* High-fidelity Photo Headshot Placeholder */}
+                  <div className="relative w-full aspect-square max-w-[200px] rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 via-gray-100/60 to-gray-50 border border-gray-150 flex flex-col items-center justify-center shadow-inner group/headshot">
+                    <div className="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:12px_12px] opacity-40" />
+                    <div className="absolute -top-10 -right-10 w-24 h-24 rounded-full bg-red-500/[0.03] group-hover/headshot:scale-125 transition-transform duration-500" />
+                    <div className="absolute -bottom-10 -left-10 w-28 h-28 rounded-full bg-red-500/[0.03] group-hover/headshot:scale-125 transition-transform duration-500" />
+                    <span className="font-display text-4xl font-extrabold text-red-600/20 group-hover/headshot:text-red-600/35 group-hover/headshot:scale-105 transition-all duration-300 select-none">
+                      AK
+                    </span>
+                    <span className="absolute bottom-3 text-[9px] font-mono tracking-widest text-gray-400 font-bold uppercase z-10 bg-white/80 border border-gray-100 px-2 py-0.5 rounded-full backdrop-blur-xs">
+                      [ PHOTO ]
+                    </span>
+                  </div>
+
                   <div>
                     <h3 className="text-2xl font-black text-black tracking-tight font-display">
                       Andrés Korda
