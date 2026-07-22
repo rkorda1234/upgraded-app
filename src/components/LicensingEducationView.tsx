@@ -75,9 +75,10 @@ const FAQ_ITEMS: FAQItem[] = [
 
 interface LicensingEducationViewProps {
   onOpenChat: (prompt?: string) => void;
+  onExploreCourses?: (courseId?: string, category?: string) => void;
 }
 
-export default function LicensingEducationView({ onOpenChat }: LicensingEducationViewProps) {
+export default function LicensingEducationView({ onOpenChat, onExploreCourses }: LicensingEducationViewProps) {
   const [openFAQId, setOpenFAQId] = useState<string | null>(null);
   const programsRef = useRef<HTMLDivElement | null>(null);
 
@@ -86,7 +87,11 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
   };
 
   const scrollToPrograms = () => {
-    programsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (onExploreCourses) {
+      onExploreCourses(undefined, "Licensing Education");
+    } else {
+      programsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   return (
@@ -259,10 +264,12 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
 
               <div className="pt-8 border-t border-gray-100 mt-8">
                 <button
-                  onClick={() => alert("Registration for our 63-Hour Pre-License course will open soon following state approval. Leave your email in our system to be notified immediately.")}
-                  className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:text-emerald-600 transition-colors duration-200"
+                  onClick={() => {
+                    if (onExploreCourses) onExploreCourses("fl-63hr-prelicensing", "Licensing Education");
+                  }}
+                  className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:text-emerald-600 transition-colors duration-200 cursor-pointer"
                 >
-                  Learn More
+                  View Course Details
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -275,6 +282,9 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
               whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(0,0,0,0.04)" }}
+              onClick={() => {
+                if (onExploreCourses) onExploreCourses("fl-45hr-postlicensing", "Licensing Education");
+              }}
               className="bg-white border border-gray-150 rounded-2xl p-8 flex flex-col justify-between hover:border-black transition-all duration-200 group cursor-pointer"
             >
               <div className="space-y-6">
@@ -302,10 +312,13 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
 
               <div className="pt-8 border-t border-gray-100 mt-8">
                 <button
-                  onClick={() => alert("Standard real estate enrollment workflow. Our 45-Hour course is fully active! Leave a prompt with our AI advisor or register inside your student portal.")}
-                  className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:text-emerald-600 transition-colors duration-200"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (onExploreCourses) onExploreCourses("fl-45hr-postlicensing", "Licensing Education");
+                  }}
+                  className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:text-emerald-600 transition-colors duration-200 cursor-pointer"
                 >
-                  Learn More
+                  View Course Details
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -318,6 +331,9 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
               whileHover={{ y: -6, boxShadow: "0 20px 40px rgba(0,0,0,0.04)" }}
+              onClick={() => {
+                if (onExploreCourses) onExploreCourses("fl-14hr-ce", "Continuing Education");
+              }}
               className="bg-white border border-gray-150 rounded-2xl p-8 flex flex-col justify-between hover:border-black transition-all duration-200 group cursor-pointer"
             >
               <div className="space-y-6">
@@ -345,10 +361,13 @@ export default function LicensingEducationView({ onOpenChat }: LicensingEducatio
 
               <div className="pt-8 border-t border-gray-100 mt-8">
                 <button
-                  onClick={() => alert("Our 14-Hour Continuing Education course provides seamless automated state sync. Inquire with our Advisor or sign in to begin immediately.")}
-                  className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:text-emerald-600 transition-colors duration-200"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (onExploreCourses) onExploreCourses("fl-14hr-ce", "Continuing Education");
+                  }}
+                  className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:text-emerald-600 transition-colors duration-200 cursor-pointer"
                 >
-                  Learn More
+                  View Course Details
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>

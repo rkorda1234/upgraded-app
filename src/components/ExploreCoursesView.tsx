@@ -31,12 +31,14 @@ import {
 
 interface ExploreCoursesViewProps {
   initialCourseId?: string | null;
+  initialCategory?: string | null;
   onOpenChatWithPrompt?: (prompt: string) => void;
   onBackToHome: () => void;
 }
 
 export default function ExploreCoursesView({ 
   initialCourseId, 
+  initialCategory,
   onOpenChatWithPrompt,
   onBackToHome 
 }: ExploreCoursesViewProps) {
@@ -48,15 +50,21 @@ export default function ExploreCoursesView({
   const [notifyEmail, setNotifyEmail] = useState<string>("");
   const [notifySubmitted, setNotifySubmitted] = useState<boolean>(false);
 
-  // Sync initialCourseId if passed
+  // Sync initialCourseId and initialCategory if passed
   useEffect(() => {
     if (initialCourseId) {
       const found = COURSES.find(c => c.id === initialCourseId || c.slug === initialCourseId);
       if (found) {
         setSelectedCourse(found);
       }
+    } else {
+      setSelectedCourse(null);
     }
-  }, [initialCourseId]);
+
+    if (initialCategory) {
+      setSelectedCategory(initialCategory);
+    }
+  }, [initialCourseId, initialCategory]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });

@@ -4,8 +4,17 @@ import { GraduationCap, ShieldAlert, Sparkles, BookOpen, Clock, Layers, ArrowRig
 import { Program, ProgramCategory } from "../types";
 
 interface ProgramGridProps {
-  onExploreCourses?: (courseId?: string) => void;
+  onExploreCourses?: (courseId?: string, category?: string) => void;
 }
+
+const PROGRAM_TO_COURSE_ID: Record<string, string> = {
+  "pre-license": "fl-63hr-prelicensing",
+  "continuing-ed": "fl-14hr-ce",
+  "post-license": "fl-45hr-postlicensing",
+  "ai-real-estate": "ai-real-estate",
+  "marketing-growth": "marketing-growth-mastery",
+  "business-planning": "business-planning-masterclass"
+};
 
 export default function ProgramGrid({ onExploreCourses }: ProgramGridProps) {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
@@ -220,8 +229,15 @@ export default function ProgramGrid({ onExploreCourses }: ProgramGridProps) {
               {/* Category Action Link */}
               <div className={`mt-8 pt-4 border-t flex justify-end ${isDark ? "border-neutral-900" : "border-gray-100"}`}>
                 <button 
-                  onClick={() => setSelectedProgram(category.programs[0])}
-                  className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 group transition-colors ${
+                  onClick={() => {
+                    if (onExploreCourses) {
+                      const catName = category.id === "licensing" ? "Licensing Education" : "Professional Development";
+                      onExploreCourses(undefined, catName);
+                    } else {
+                      setSelectedProgram(category.programs[0]);
+                    }
+                  }}
+                  className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 group transition-colors cursor-pointer ${
                     isDark ? "text-white hover:text-gray-300" : "text-black hover:text-gray-700"
                   }`}
                 >
@@ -323,9 +339,10 @@ export default function ProgramGrid({ onExploreCourses }: ProgramGridProps) {
                 ) : (
                   <button
                     onClick={() => {
+                      const progId = selectedProgram.id;
                       setSelectedProgram(null);
                       if (onExploreCourses) {
-                        const targetCourseId = selectedProgram.id.includes("continuing") ? "fl-14hr-ce" : "fl-63hr-prelicensing";
+                        const targetCourseId = PROGRAM_TO_COURSE_ID[progId] || (progId.includes("continuing") ? "fl-14hr-ce" : "fl-63hr-prelicensing");
                         onExploreCourses(targetCourseId);
                       }
                     }}

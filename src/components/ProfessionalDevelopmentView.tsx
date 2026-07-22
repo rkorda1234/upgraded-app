@@ -67,9 +67,10 @@ const FAQ_ITEMS: FAQItem[] = [
 
 interface ProfessionalDevelopmentViewProps {
   onOpenChat: (prompt?: string) => void;
+  onExploreCourses?: (courseId?: string, category?: string) => void;
 }
 
-export default function ProfessionalDevelopmentView({ onOpenChat }: ProfessionalDevelopmentViewProps) {
+export default function ProfessionalDevelopmentView({ onOpenChat, onExploreCourses }: ProfessionalDevelopmentViewProps) {
   const [openFAQId, setOpenFAQId] = useState<string | null>(null);
   const programsRef = useRef<HTMLDivElement | null>(null);
 
@@ -78,7 +79,11 @@ export default function ProfessionalDevelopmentView({ onOpenChat }: Professional
   };
 
   const scrollToPrograms = () => {
-    programsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (onExploreCourses) {
+      onExploreCourses(undefined, "Professional Development");
+    } else {
+      programsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   return (
@@ -234,7 +239,10 @@ export default function ProfessionalDevelopmentView({ onOpenChat }: Professional
             {/* AI for Real Estate */}
             <motion.div 
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className="group bg-white border border-gray-150 rounded-3xl p-8 flex flex-col justify-between shadow-[0_12px_40px_rgba(0,0,0,0.01)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.05)] hover:border-blue-200 transition-all duration-300"
+              onClick={() => {
+                if (onExploreCourses) onExploreCourses("ai-real-estate", "Professional Development");
+              }}
+              className="group bg-white border border-gray-150 rounded-3xl p-8 flex flex-col justify-between shadow-[0_12px_40px_rgba(0,0,0,0.01)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.05)] hover:border-blue-200 transition-all duration-300 cursor-pointer"
             >
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
@@ -261,10 +269,13 @@ export default function ProfessionalDevelopmentView({ onOpenChat }: Professional
 
               <div className="pt-8 border-t border-gray-100 mt-8">
                 <button
-                  onClick={() => onOpenChat("Tell me more about the 'AI for Real Estate Professionals' program")}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (onExploreCourses) onExploreCourses("ai-real-estate", "Professional Development");
+                  }}
                   className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:text-blue-600 transition-colors duration-200 cursor-pointer"
                 >
-                  Learn More
+                  View Program Details
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -273,7 +284,10 @@ export default function ProfessionalDevelopmentView({ onOpenChat }: Professional
             {/* Marketing & Business Growth */}
             <motion.div 
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className="group bg-white border border-gray-150 rounded-3xl p-8 flex flex-col justify-between shadow-[0_12px_40px_rgba(0,0,0,0.01)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.05)] hover:border-blue-200 transition-all duration-300"
+              onClick={() => {
+                if (onExploreCourses) onExploreCourses("marketing-growth-mastery", "Professional Development");
+              }}
+              className="group bg-white border border-gray-150 rounded-3xl p-8 flex flex-col justify-between shadow-[0_12px_40px_rgba(0,0,0,0.01)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.05)] hover:border-blue-200 transition-all duration-300 cursor-pointer"
             >
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
@@ -300,10 +314,13 @@ export default function ProfessionalDevelopmentView({ onOpenChat }: Professional
 
               <div className="pt-8 border-t border-gray-100 mt-8">
                 <button
-                  onClick={() => onOpenChat("Tell me more about the 'Marketing & Business Growth' program")}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (onExploreCourses) onExploreCourses("marketing-growth-mastery", "Professional Development");
+                  }}
                   className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:text-blue-600 transition-colors duration-200 cursor-pointer"
                 >
-                  Learn More
+                  View Program Details
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -312,7 +329,10 @@ export default function ProfessionalDevelopmentView({ onOpenChat }: Professional
             {/* Business Planning */}
             <motion.div 
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
-              className="group bg-white border border-gray-150 rounded-3xl p-8 flex flex-col justify-between shadow-[0_12px_40px_rgba(0,0,0,0.01)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.05)] hover:border-blue-200 transition-all duration-300"
+              onClick={() => {
+                if (onExploreCourses) onExploreCourses("business-planning-masterclass", "Professional Development");
+              }}
+              className="group bg-white border border-gray-150 rounded-3xl p-8 flex flex-col justify-between shadow-[0_12px_40px_rgba(0,0,0,0.01)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.05)] hover:border-blue-200 transition-all duration-300 cursor-pointer"
             >
               <div className="space-y-6">
                 <div className="flex items-center justify-between">
@@ -339,10 +359,13 @@ export default function ProfessionalDevelopmentView({ onOpenChat }: Professional
 
               <div className="pt-8 border-t border-gray-100 mt-8">
                 <button
-                  onClick={() => onOpenChat("Tell me more about the 'Business Planning for Real Estate Professionals' program")}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (onExploreCourses) onExploreCourses("business-planning-masterclass", "Professional Development");
+                  }}
                   className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 text-black group-hover:text-blue-600 transition-colors duration-200 cursor-pointer"
                 >
-                  Learn More
+                  View Program Details
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>

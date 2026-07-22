@@ -31,11 +31,13 @@ import LeadershipView from "./components/LeadershipView";
 import ContactView from "./components/ContactView";
 import PolicyView, { PolicyKey } from "./components/PolicyView";
 import ExploreCoursesView from "./components/ExploreCoursesView";
+import ThankYouView from "./components/ThankYouView";
 import heroVisual from "./assets/images/upgraded_hero_visual_1784582864331.jpg";
 
 export default function App() {
-  const [activeView, setActiveView] = useState<'home' | 'courses' | 'licensing' | 'pro_dev' | 'leadership' | 'contact' | 'policy'>('home');
+  const [activeView, setActiveView] = useState<'home' | 'courses' | 'licensing' | 'pro_dev' | 'leadership' | 'contact' | 'policy' | 'thank_you'>('home');
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showFloatingChat, setShowFloatingChat] = useState(false);
   const [chatInitialPrompt, setChatInitialPrompt] = useState<string | undefined>(undefined);
   const [subscribed, setSubscribed] = useState(false);
@@ -94,6 +96,32 @@ export default function App() {
     };
   }, []);
 
+  const handleExploreCourses = (courseId?: string, category?: string) => {
+    setSelectedCourseId(courseId || null);
+    setSelectedCategory(category || "All");
+    setActiveView('courses');
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const view = params.get('view');
+    const courseId = params.get('courseId');
+    const category = params.get('category');
+
+    if (view === 'thank-you' || view === 'thank_you' || params.has('thank-you')) {
+      setActiveView('thank_you');
+    } else if (view === 'courses' || courseId) {
+      setActiveView('courses');
+      if (courseId) setSelectedCourseId(courseId);
+      if (category) setSelectedCategory(category);
+    } else if (view === 'licensing') {
+      setActiveView('licensing');
+    } else if (view === 'pro_dev' || view === 'pro-dev') {
+      setActiveView('pro_dev');
+    }
+  }, []);
+
   const scrollToSection = (ref: RefObject<HTMLDivElement | null>) => {
     if (ref.current && scrollRef.current) {
       const rect = ref.current.getBoundingClientRect();
@@ -125,6 +153,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-[#111111] font-sans antialiased selection:bg-gray-100 selection:text-black relative overflow-x-hidden">
       <Helmet>
+        <link rel="icon" type="image/png" href="https://storage.googleapis.com/funnel-ai-production/chat/f9BI6PkMYA8EmsOEt8AU/Upgraded--1-.png" />
         {activeView === 'home' && (
           <>
             <title>Upgraded | Modern Real Estate Education & Licensing Academy</title>
@@ -494,11 +523,7 @@ export default function App() {
 
           {/* Programs Grid Component */}
           <ProgramGrid 
-            onExploreCourses={(courseId) => {
-              setSelectedCourseId(courseId || null);
-              setActiveView('courses');
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+            onExploreCourses={(courseId, category) => handleExploreCourses(courseId, category)}
           />
         </div>
       </section>
@@ -512,6 +537,7 @@ export default function App() {
       ) : activeView === 'courses' ? (
         <ExploreCoursesView
           initialCourseId={selectedCourseId}
+          initialCategory={selectedCategory}
           onOpenChatWithPrompt={handleOpenChatWithPrompt}
           onBackToHome={() => {
             setActiveView('home');
@@ -519,25 +545,31 @@ export default function App() {
           }}
         />
       ) : activeView === 'licensing' ? (
-        <LicensingEducationView onOpenChat={handleOpenChatWithPrompt} />
+        <LicensingEducationView 
+          onOpenChat={handleOpenChatWithPrompt} 
+          onExploreCourses={(courseId, category) => handleExploreCourses(courseId, category)}
+        />
       ) : activeView === 'pro_dev' ? (
-        <ProfessionalDevelopmentView onOpenChat={handleOpenChatWithPrompt} />
+        <ProfessionalDevelopmentView 
+          onOpenChat={handleOpenChatWithPrompt} 
+          onExploreCourses={(courseId, category) => handleExploreCourses(courseId, category)}
+        />
       ) : activeView === 'leadership' ? (
         <LeadershipView 
           onOpenChat={handleOpenChatWithPrompt} 
-          onExploreLearningPaths={() => {
-            setSelectedCourseId(null);
-            setActiveView('courses');
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
+          onExploreLearningPaths={() => handleExploreCourses(undefined, "All")}
         />
       ) : activeView === 'contact' ? (
         <ContactView 
-          onExploreCourses={() => {
-            setSelectedCourseId(null);
-            setActiveView('courses');
+          onExploreCourses={() => handleExploreCourses(undefined, "All")}
+        />
+      ) : activeView === 'thank_you' ? (
+        <ThankYouView
+          onBackToHome={() => {
+            setActiveView('home');
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
+          onExploreCourses={() => handleExploreCourses(undefined, "All")}
         />
       ) : (
         <PolicyView
@@ -667,6 +699,17 @@ export default function App() {
                   >
                     Student Login
                   </a>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => {
+                      setActiveView('thank_you');
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className={`transition-colors cursor-pointer text-left ${activeView === 'thank_you' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
+                  >
+                    Order Confirmation
+                  </button>
                 </li>
               </ul>
             </div>
