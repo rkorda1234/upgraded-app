@@ -96,30 +96,95 @@ export default function App() {
     };
   }, []);
 
-  const handleExploreCourses = (courseId?: string, category?: string) => {
-    setSelectedCourseId(courseId || null);
-    setSelectedCategory(category || "All");
-    setActiveView('courses');
+  const navigateToView = (
+    view: 'home' | 'courses' | 'licensing' | 'pro_dev' | 'leadership' | 'contact' | 'policy' | 'thank_you',
+    opts?: { courseId?: string | null; category?: string | null; policyKey?: PolicyKey }
+  ) => {
+    setActiveView(view);
+    const courseId = opts?.courseId !== undefined ? opts.courseId : (view === 'courses' ? selectedCourseId : null);
+    const category = opts?.category !== undefined ? opts.category : (view === 'courses' ? selectedCategory : null);
+    const policyKey = opts?.policyKey ?? selectedPolicyKey;
+
+    if (view === 'courses') {
+      setSelectedCourseId(opts ? (opts.courseId ?? null) : null);
+      if (opts?.category) setSelectedCategory(opts.category);
+    }
+    if (opts?.policyKey) {
+      setSelectedPolicyKey(opts.policyKey);
+    }
+
+    const url = new URL(window.location.href);
+    if (view === 'home') {
+      url.search = '';
+    } else {
+      url.searchParams.set('view', view);
+      if (view === 'courses') {
+        const activeCourseId = opts ? opts.courseId : selectedCourseId;
+        const activeCat = opts ? opts.category : selectedCategory;
+        if (activeCourseId) {
+          url.searchParams.set('courseId', activeCourseId);
+        } else {
+          url.searchParams.delete('courseId');
+        }
+        if (activeCat && activeCat !== 'All') {
+          url.searchParams.set('category', activeCat);
+        } else {
+          url.searchParams.delete('category');
+        }
+      } else {
+        url.searchParams.delete('courseId');
+        url.searchParams.delete('category');
+      }
+
+      if (view === 'policy' && policyKey) {
+        url.searchParams.set('policyKey', policyKey);
+      } else {
+        url.searchParams.delete('policyKey');
+      }
+    }
+
+    window.history.pushState({}, '', url.toString());
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const view = params.get('view');
-    const courseId = params.get('courseId');
-    const category = params.get('category');
+  const handleExploreCourses = (courseId?: string, category?: string) => {
+    navigateToView('courses', { courseId: courseId || null, category: category || "All" });
+  };
 
-    if (view === 'thank-you' || view === 'thank_you' || params.has('thank-you')) {
-      setActiveView('thank_you');
-    } else if (view === 'courses' || courseId) {
-      setActiveView('courses');
-      if (courseId) setSelectedCourseId(courseId);
-      if (category) setSelectedCategory(category);
-    } else if (view === 'licensing') {
-      setActiveView('licensing');
-    } else if (view === 'pro_dev' || view === 'pro-dev') {
-      setActiveView('pro_dev');
-    }
+  useEffect(() => {
+    const syncStateFromUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+      const view = params.get('view');
+      const courseId = params.get('courseId');
+      const category = params.get('category');
+      const policyKey = params.get('policyKey') as PolicyKey | null;
+
+      if (view === 'thank-you' || view === 'thank_you' || params.has('thank-you')) {
+        setActiveView('thank_you');
+      } else if (view === 'courses' || courseId) {
+        setActiveView('courses');
+        if (courseId) setSelectedCourseId(courseId);
+        if (category) setSelectedCategory(category);
+      } else if (view === 'licensing') {
+        setActiveView('licensing');
+      } else if (view === 'pro_dev' || view === 'pro-dev') {
+        setActiveView('pro_dev');
+      } else if (view === 'leadership') {
+        setActiveView('leadership');
+      } else if (view === 'contact') {
+        setActiveView('contact');
+      } else if (view === 'policy') {
+        setActiveView('policy');
+        if (policyKey) setSelectedPolicyKey(policyKey);
+      } else {
+        setActiveView('home');
+      }
+    };
+
+    syncStateFromUrl();
+
+    window.addEventListener('popstate', syncStateFromUrl);
+    return () => window.removeEventListener('popstate', syncStateFromUrl);
   }, []);
 
   const scrollToSection = (ref: RefObject<HTMLDivElement | null>) => {
@@ -225,10 +290,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div 
             className="flex items-center gap-1.5 cursor-pointer select-none" 
-            onClick={() => {
-              setActiveView('home');
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+            onClick={() => navigateToView('home')}
           >
             <span className="text-2xl font-black tracking-tight text-black font-sans flex items-center">
               Upgr
@@ -244,47 +306,31 @@ export default function App() {
           {/* Nav Links */}
           <div className="hidden xl:flex items-center gap-6 text-[12px] font-sans uppercase tracking-wider text-gray-400 font-semibold">
             <button 
-              onClick={() => {
-                setSelectedCourseId(null);
-                setActiveView('courses');
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+              onClick={() => navigateToView('courses', { courseId: null })}
               className={`transition-colors cursor-pointer text-left ${activeView === 'courses' ? 'text-black font-bold' : 'hover:text-black'}`}
             >
               COURSES
             </button>
             <button 
-              onClick={() => {
-                setActiveView('licensing');
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+              onClick={() => navigateToView('licensing')}
               className={`transition-colors cursor-pointer text-left ${activeView === 'licensing' ? 'text-black font-bold' : 'hover:text-black'}`}
             >
               LICENSING EDUCATION
             </button>
             <button 
-              onClick={() => {
-                setActiveView('pro_dev');
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+              onClick={() => navigateToView('pro_dev')}
               className={`transition-colors cursor-pointer text-left ${activeView === 'pro_dev' ? 'text-black font-bold' : 'hover:text-black'}`}
             >
               PROFESSIONAL DEVELOPMENT
             </button>
             <button 
-              onClick={() => {
-                setActiveView('leadership');
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+              onClick={() => navigateToView('leadership')}
               className={`transition-colors cursor-pointer text-left ${activeView === 'leadership' ? 'text-black font-bold' : 'hover:text-black'}`}
             >
               LEADERSHIP
             </button>
             <button 
-              onClick={() => {
-                setActiveView('contact');
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+              onClick={() => navigateToView('contact')}
               className={`transition-colors cursor-pointer text-left ${activeView === 'contact' ? 'text-black font-bold' : 'hover:text-black'}`}
             >
               CONTACT
@@ -539,10 +585,7 @@ export default function App() {
           initialCourseId={selectedCourseId}
           initialCategory={selectedCategory}
           onOpenChatWithPrompt={handleOpenChatWithPrompt}
-          onBackToHome={() => {
-            setActiveView('home');
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
+          onBackToHome={() => navigateToView('home')}
         />
       ) : activeView === 'licensing' ? (
         <LicensingEducationView 
@@ -565,19 +608,13 @@ export default function App() {
         />
       ) : activeView === 'thank_you' ? (
         <ThankYouView
-          onBackToHome={() => {
-            setActiveView('home');
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
+          onBackToHome={() => navigateToView('home')}
           onExploreCourses={() => handleExploreCourses(undefined, "All")}
         />
       ) : (
         <PolicyView
           initialPolicy={selectedPolicyKey}
-          onBack={() => {
-            setActiveView('home');
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
+          onBack={() => navigateToView('home')}
         />
       )}
 
@@ -592,10 +629,7 @@ export default function App() {
             <div className="lg:col-span-4 space-y-5 text-left">
               <div 
                 className="flex items-center gap-1.5 cursor-pointer select-none" 
-                onClick={() => {
-                  setActiveView('home');
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
+                onClick={() => navigateToView('home')}
               >
                 <span className="text-2xl font-black tracking-tight text-white font-sans flex items-center">
                   Upgr
@@ -625,10 +659,7 @@ export default function App() {
               <ul className="space-y-2.5 text-xs">
                 <li>
                   <button 
-                    onClick={() => {
-                      setActiveView('home');
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
+                    onClick={() => navigateToView('home')}
                     className={`transition-colors cursor-pointer text-left ${activeView === 'home' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
                   >
                     Home
@@ -636,11 +667,7 @@ export default function App() {
                 </li>
                 <li>
                   <button 
-                    onClick={() => {
-                      setSelectedCourseId(null);
-                      setActiveView('courses');
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
+                    onClick={() => navigateToView('courses', { courseId: null })}
                     className={`transition-colors cursor-pointer text-left ${activeView === 'courses' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
                   >
                     Explore Courses
@@ -648,10 +675,7 @@ export default function App() {
                 </li>
                 <li>
                   <button 
-                    onClick={() => {
-                      setActiveView('licensing');
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
+                    onClick={() => navigateToView('licensing')}
                     className={`transition-colors cursor-pointer text-left ${activeView === 'licensing' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
                   >
                     Licensing Education
@@ -659,10 +683,7 @@ export default function App() {
                 </li>
                 <li>
                   <button 
-                    onClick={() => {
-                      setActiveView('pro_dev');
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
+                    onClick={() => navigateToView('pro_dev')}
                     className={`transition-colors cursor-pointer text-left ${activeView === 'pro_dev' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
                   >
                     Professional Development
@@ -670,10 +691,7 @@ export default function App() {
                 </li>
                 <li>
                   <button 
-                    onClick={() => {
-                      setActiveView('leadership');
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
+                    onClick={() => navigateToView('leadership')}
                     className={`transition-colors cursor-pointer text-left ${activeView === 'leadership' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
                   >
                     Leadership
@@ -681,10 +699,7 @@ export default function App() {
                 </li>
                 <li>
                   <button 
-                    onClick={() => {
-                      setActiveView('contact');
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
+                    onClick={() => navigateToView('contact')}
                     className={`transition-colors cursor-pointer text-left ${activeView === 'contact' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
                   >
                     Contact Us
@@ -702,10 +717,7 @@ export default function App() {
                 </li>
                 <li>
                   <button 
-                    onClick={() => {
-                      setActiveView('thank_you');
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
+                    onClick={() => navigateToView('thank_you')}
                     className={`transition-colors cursor-pointer text-left ${activeView === 'thank_you' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
                   >
                     Order Confirmation
@@ -762,9 +774,7 @@ export default function App() {
                         else if (policy === "Accessibility Statement") key = "accessibility";
                         else if (policy === "Cookie Policy") key = "cookie";
                         
-                        setSelectedPolicyKey(key);
-                        setActiveView("policy");
-                        window.scrollTo({ top: 0, behavior: "smooth" });
+                        navigateToView('policy', { policyKey: key });
                       }}
                       className="hover:text-white transition-colors cursor-pointer text-left"
                     >

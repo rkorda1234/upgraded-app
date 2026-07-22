@@ -1,9 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
   Mail, 
   Clock, 
-  CheckCircle, 
   ChevronDown, 
   MessageSquare, 
   ArrowRight, 
@@ -11,8 +10,7 @@ import {
   Laptop, 
   LifeBuoy, 
   Handshake, 
-  Sparkles, 
-  Send 
+  Sparkles 
 } from "lucide-react";
 
 interface ContactViewProps {
@@ -22,15 +20,7 @@ interface ContactViewProps {
 type InquiryType = "licensing" | "professional" | "support" | "partnership" | "";
 
 export default function ContactView({ onExploreCourses }: ContactViewProps) {
-  // Form State
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
   const [inquiryType, setInquiryType] = useState<InquiryType>("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   // FAQ state
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
@@ -38,31 +28,22 @@ export default function ContactView({ onExploreCourses }: ContactViewProps) {
   // Ref to form for smooth scrolling when option card is clicked
   const formRef = useRef<HTMLDivElement | null>(null);
 
+  useEffect(() => {
+    const scriptId = "ghl-form-embed-script";
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement("script");
+      script.id = scriptId;
+      script.src = "https://link.msgsndr.com/js/form_embed.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
   const handleInquirySelect = (type: InquiryType) => {
     setInquiryType(type);
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!firstName || !lastName || !email || !message) return;
-
-    setIsSubmitting(true);
-
-    // Simulate server request
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-      
-      // Reset form
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPhone("");
-      setMessage("");
-    }, 1200);
   };
 
   const inquiryOptions = [
@@ -230,138 +211,42 @@ export default function ContactView({ onExploreCourses }: ContactViewProps) {
                 </p>
               </div>
 
-              <AnimatePresence mode="wait">
-                {isSubmitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    className="bg-emerald-50 border border-emerald-200 rounded-xl p-8 text-center space-y-4"
+              {/* Inquiry Category Alert if pre-selected */}
+              {inquiryType && (
+                <div className="bg-gray-50 border border-gray-150 rounded-xl p-3 text-xs flex items-center justify-between">
+                  <span className="text-gray-500">
+                    Inquiry Department: <strong>{inquiryOptions.find(o => o.id === inquiryType)?.title}</strong>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setInquiryType("")}
+                    className="text-[10px] text-gray-400 hover:text-black font-mono"
                   >
-                    <div className="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center text-white mx-auto">
-                      <CheckCircle className="w-6 h-6" />
-                    </div>
-                    <div className="space-y-1.5">
-                      <h4 className="text-base font-bold text-emerald-900 font-display">
-                        Message Sent Successfully
-                      </h4>
-                      <p className="text-xs text-emerald-700 max-w-sm mx-auto leading-relaxed">
-                        Thank you for reaching out to Upgraded. We've received your message and our team will get back to you within 24 business hours.
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => setIsSubmitted(false)}
-                      className="text-[10px] font-mono uppercase tracking-wider font-bold text-emerald-800 hover:underline cursor-pointer"
-                    >
-                      Send another message
-                    </button>
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Inquiry Category Alert if pre-selected */}
-                    {inquiryType && (
-                      <div className="bg-gray-50 border border-gray-150 rounded-xl p-3 text-xs flex items-center justify-between">
-                        <span className="text-gray-500">
-                          Inquiry Department: <strong>{inquiryOptions.find(o => o.id === inquiryType)?.title}</strong>
-                        </span>
-                        <button
-                          type="button"
-                          onClick={() => setInquiryType("")}
-                          className="text-[10px] text-gray-400 hover:text-black font-mono"
-                        >
-                          Clear
-                        </button>
-                      </div>
-                    )}
+                    Clear
+                  </button>
+                </div>
+              )}
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-1.5">
-                        <label className="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-bold">
-                          First Name <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="Adriana"
-                          value={firstName}
-                          onChange={(e) => setFirstName(e.target.value)}
-                          className="w-full text-xs px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black transition-colors"
-                        />
-                      </div>
-                      <div className="space-y-1.5">
-                        <label className="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-bold">
-                          Last Name <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="Pinto"
-                          value={lastName}
-                          onChange={(e) => setLastName(e.target.value)}
-                          className="w-full text-xs px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black transition-colors"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div className="space-y-1.5">
-                        <label className="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-bold">
-                          Email Address <span className="text-red-500">*</span>
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          placeholder="adriana@example.com"
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          className="w-full text-xs px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black transition-colors"
-                        />
-                      </div>
-                      <div className="space-y-1.5">
-                        <label className="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-bold">
-                          Phone Number
-                        </label>
-                        <input
-                          type="tel"
-                          placeholder="(305) 555-0199"
-                          value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
-                          className="w-full text-xs px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black transition-colors"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="text-[10px] font-mono uppercase tracking-wider text-gray-400 font-bold">
-                        Message <span className="text-red-500">*</span>
-                      </label>
-                      <textarea
-                        required
-                        rows={4}
-                        placeholder="Tell us how we can assist you..."
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        className="w-full text-xs px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-black transition-colors resize-none"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-black hover:bg-neutral-900 disabled:bg-gray-300 text-white font-semibold text-xs rounded-xl py-3 cursor-pointer transition-colors flex items-center justify-center gap-2"
-                    >
-                      {isSubmitting ? (
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      ) : (
-                        <>
-                          <Send className="w-3.5 h-3.5" />
-                          Send Message
-                        </>
-                      )}
-                    </button>
-                  </form>
-                )}
-              </AnimatePresence>
+              {/* GoHighLevel Contact Form Iframe Embed */}
+              <div className="w-full min-h-[586px] overflow-hidden rounded-xl border border-gray-100 bg-white">
+                <iframe
+                  src="https://api.leadconnectorhq.com/widget/form/xoeHLtP5kT76IgxxgEf3"
+                  style={{ width: "100%", height: "100%", minHeight: "586px", border: "none", borderRadius: "12px" }}
+                  id="inline-xoeHLtP5kT76IgxxgEf3"
+                  data-layout="{'id':'INLINE'}"
+                  data-trigger-type="alwaysShow"
+                  data-trigger-value=""
+                  data-activation-type="alwaysActivated"
+                  data-activation-value=""
+                  data-deactivation-type="neverDeactivate"
+                  data-deactivation-value=""
+                  data-form-name="Contact Us"
+                  data-height="586"
+                  data-layout-iframe-id="inline-xoeHLtP5kT76IgxxgEf3"
+                  data-form-id="xoeHLtP5kT76IgxxgEf3"
+                  title="Contact Us"
+                />
+              </div>
             </div>
           </div>
 
