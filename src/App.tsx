@@ -30,10 +30,12 @@ import ProfessionalDevelopmentView from "./components/ProfessionalDevelopmentVie
 import LeadershipView from "./components/LeadershipView";
 import ContactView from "./components/ContactView";
 import PolicyView, { PolicyKey } from "./components/PolicyView";
+import ExploreCoursesView from "./components/ExploreCoursesView";
 import heroVisual from "./assets/images/upgraded_hero_visual_1784582864331.jpg";
 
 export default function App() {
-  const [activeView, setActiveView] = useState<'home' | 'licensing' | 'pro_dev' | 'leadership' | 'contact' | 'policy'>('home');
+  const [activeView, setActiveView] = useState<'home' | 'courses' | 'licensing' | 'pro_dev' | 'leadership' | 'contact' | 'policy'>('home');
+  const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
   const [showFloatingChat, setShowFloatingChat] = useState(false);
   const [chatInitialPrompt, setChatInitialPrompt] = useState<string | undefined>(undefined);
   const [subscribed, setSubscribed] = useState(false);
@@ -131,6 +133,14 @@ export default function App() {
             <meta property="og:description" content="Upgraded provides premium DBPR-licensed real estate courses, advanced AI business frameworks, and professional development programs to help you stay ahead." />
           </>
         )}
+        {activeView === 'courses' && (
+          <>
+            <title>Explore Real Estate Courses & DBPR Programs | Upgraded Academy</title>
+            <meta name="description" content="Browse state-approved Florida continuing education, pre-licensing, and professional development courses with instant HighLevel checkout." />
+            <meta property="og:title" content="Explore Real Estate Courses & DBPR Programs | Upgraded Academy" />
+            <meta property="og:description" content="Browse state-approved Florida continuing education, pre-licensing, and professional development courses with instant HighLevel checkout." />
+          </>
+        )}
         {activeView === 'licensing' && (
           <>
             <title>Real Estate Licensing Education & Renewal | Upgraded Academy</title>
@@ -204,6 +214,16 @@ export default function App() {
 
           {/* Nav Links */}
           <div className="hidden xl:flex items-center gap-6 text-[12px] font-sans uppercase tracking-wider text-gray-400 font-semibold">
+            <button 
+              onClick={() => {
+                setSelectedCourseId(null);
+                setActiveView('courses');
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className={`transition-colors cursor-pointer text-left ${activeView === 'courses' ? 'text-black font-bold' : 'hover:text-black'}`}
+            >
+              COURSES
+            </button>
             <button 
               onClick={() => {
                 setActiveView('licensing');
@@ -473,7 +493,13 @@ export default function App() {
           </div>
 
           {/* Programs Grid Component */}
-          <ProgramGrid />
+          <ProgramGrid 
+            onExploreCourses={(courseId) => {
+              setSelectedCourseId(courseId || null);
+              setActiveView('courses');
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          />
         </div>
       </section>
 
@@ -483,6 +509,15 @@ export default function App() {
       {/* FAQ Accordion Section */}
       <FAQAccordion />
         </>
+      ) : activeView === 'courses' ? (
+        <ExploreCoursesView
+          initialCourseId={selectedCourseId}
+          onOpenChatWithPrompt={handleOpenChatWithPrompt}
+          onBackToHome={() => {
+            setActiveView('home');
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+        />
       ) : activeView === 'licensing' ? (
         <LicensingEducationView onOpenChat={handleOpenChatWithPrompt} />
       ) : activeView === 'pro_dev' ? (
@@ -491,19 +526,17 @@ export default function App() {
         <LeadershipView 
           onOpenChat={handleOpenChatWithPrompt} 
           onExploreLearningPaths={() => {
-            setActiveView('home');
-            setTimeout(() => {
-              scrollToSection(learningPathsRef);
-            }, 100);
+            setSelectedCourseId(null);
+            setActiveView('courses');
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }}
         />
       ) : activeView === 'contact' ? (
         <ContactView 
           onExploreCourses={() => {
-            setActiveView('home');
-            setTimeout(() => {
-              scrollToSection(learningPathsRef);
-            }, 100);
+            setSelectedCourseId(null);
+            setActiveView('courses');
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }}
         />
       ) : (
@@ -567,6 +600,18 @@ export default function App() {
                     className={`transition-colors cursor-pointer text-left ${activeView === 'home' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
                   >
                     Home
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    onClick={() => {
+                      setSelectedCourseId(null);
+                      setActiveView('courses');
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    className={`transition-colors cursor-pointer text-left ${activeView === 'courses' ? 'text-white font-semibold' : 'text-gray-400 hover:text-white'}`}
+                  >
+                    Explore Courses
                   </button>
                 </li>
                 <li>

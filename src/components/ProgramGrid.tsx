@@ -3,7 +3,11 @@ import { motion, AnimatePresence } from "motion/react";
 import { GraduationCap, ShieldAlert, Sparkles, BookOpen, Clock, Layers, ArrowRight, X, CheckCircle2 } from "lucide-react";
 import { Program, ProgramCategory } from "../types";
 
-export default function ProgramGrid() {
+interface ProgramGridProps {
+  onExploreCourses?: (courseId?: string) => void;
+}
+
+export default function ProgramGrid({ onExploreCourses }: ProgramGridProps) {
   const [selectedProgram, setSelectedProgram] = useState<Program | null>(null);
 
   const categories: ProgramCategory[] = [
@@ -319,12 +323,15 @@ export default function ProgramGrid() {
                 ) : (
                   <button
                     onClick={() => {
-                      alert(`Thank you for your interest in ${selectedProgram.title}! Formal enrollment workflows will open shortly as we finalize our state sync. Keep an eye on your dashboard.`);
                       setSelectedProgram(null);
+                      if (onExploreCourses) {
+                        const targetCourseId = selectedProgram.id.includes("continuing") ? "fl-14hr-ce" : "fl-63hr-prelicensing";
+                        onExploreCourses(targetCourseId);
+                      }
                     }}
-                    className="px-6 py-3 bg-black hover:bg-neutral-900 text-white rounded-full text-xs font-bold shadow transition-all text-center"
+                    className="px-6 py-3 bg-black hover:bg-neutral-900 text-white rounded-full text-xs font-bold shadow transition-all text-center cursor-pointer"
                   >
-                    Secure Spot & Enroll
+                    View Program & Enroll
                   </button>
                 )}
               </div>
