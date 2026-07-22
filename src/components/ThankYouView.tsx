@@ -58,13 +58,13 @@ export default function ThankYouView({ onBackToHome, onExploreCourses }: ThankYo
           {/* PRIMARY STUDENT LOGIN PORTAL CTA BOX */}
           <div className="bg-black text-white rounded-2xl p-6 sm:p-8 space-y-5 shadow-xl relative z-10 border border-neutral-800">
             <div className="space-y-2">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-400 block">
+              <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-emerald-400 block">
                 Immediate Access
               </span>
-              <h2 className="text-xl sm:text-2xl font-bold font-display">
+              <h2 className="text-2xl sm:text-3xl font-bold font-sans tracking-tight">
                 Access Your HighLevel Student Portal
               </h2>
-              <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
+              <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-sans font-normal">
                 Click below to log in to your learning dashboard and begin your course modules right away.
               </p>
             </div>
@@ -74,14 +74,14 @@ export default function ThankYouView({ onBackToHome, onExploreCourses }: ThankYo
                 href="https://learn.upgradedreacademy.com/login"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-black font-black py-4 px-8 rounded-xl transition-all duration-300 shadow-lg flex items-center justify-center gap-2.5 text-sm uppercase tracking-wider group cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg flex items-center justify-center gap-2.5 text-sm sm:text-base uppercase tracking-wider group cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
               >
                 <GraduationCap className="w-5 h-5" />
                 <span>Go To Student Portal Login</span>
                 <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
 
-              <span className="text-xs font-mono text-gray-400">
+              <span className="text-xs sm:text-sm font-mono text-gray-400">
                 learn.upgradedreacademy.com/login
               </span>
             </div>
@@ -89,48 +89,48 @@ export default function ThankYouView({ onBackToHome, onExploreCourses }: ThankYo
 
           {/* NEXT STEPS LIST */}
           <div className="space-y-6 pt-4 border-t border-gray-100 relative z-10">
-            <h3 className="text-lg font-bold text-black font-display tracking-tight flex items-center gap-2">
+            <h3 className="text-xl font-bold text-black font-sans tracking-tight flex items-center gap-2.5">
               <Sparkles className="w-5 h-5 text-emerald-600" />
               What Happens Next?
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-gray-50 border border-gray-150 rounded-2xl p-5 space-y-2">
-                <div className="w-8 h-8 rounded-lg bg-black text-white text-xs font-mono font-bold flex items-center justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-7 space-y-3.5 shadow-xs hover:border-gray-300 transition-all">
+                <div className="w-9 h-9 rounded-xl bg-black text-white text-sm font-mono font-bold flex items-center justify-center shrink-0">
                   1
                 </div>
-                <h4 className="text-xs font-bold text-black font-display">Check Your Email</h4>
-                <p className="text-xs text-gray-600 leading-relaxed">
+                <h4 className="text-base sm:text-lg font-bold text-gray-900 font-sans tracking-tight">Check Your Email</h4>
+                <p className="text-sm text-gray-600 leading-relaxed font-sans font-normal">
                   An automated email from Upgraded Real Estate Academy has been sent to your inbox with your login credentials and receipt details.
                 </p>
               </div>
 
-              <div className="bg-gray-50 border border-gray-150 rounded-2xl p-5 space-y-2">
-                <div className="w-8 h-8 rounded-lg bg-black text-white text-xs font-mono font-bold flex items-center justify-center">
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-7 space-y-3.5 shadow-xs hover:border-gray-300 transition-all">
+                <div className="w-9 h-9 rounded-xl bg-black text-white text-sm font-mono font-bold flex items-center justify-center shrink-0">
                   2
                 </div>
-                <h4 className="text-xs font-bold text-black font-display">Log In & Learn</h4>
-                <p className="text-xs text-gray-600 leading-relaxed">
-                  Log in at <strong className="text-black">learn.upgradedreacademy.com/login</strong> on any desktop, tablet, or mobile device to start learning.
+                <h4 className="text-base sm:text-lg font-bold text-gray-900 font-sans tracking-tight">Log In & Learn</h4>
+                <p className="text-sm text-gray-600 leading-relaxed font-sans font-normal">
+                  Log in at <strong className="text-black font-semibold">learn.upgradedreacademy.com/login</strong> on any desktop, tablet, or mobile device to start learning.
                 </p>
               </div>
 
-              <div className="bg-gray-50 border border-gray-150 rounded-2xl p-5 space-y-2">
-                <div className="w-8 h-8 rounded-lg bg-black text-white text-xs font-mono font-bold flex items-center justify-center">
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-7 space-y-3.5 shadow-xs hover:border-gray-300 transition-all">
+                <div className="w-9 h-9 rounded-xl bg-black text-white text-sm font-mono font-bold flex items-center justify-center shrink-0">
                   3
                 </div>
-                <h4 className="text-xs font-bold text-black font-display">Self-Paced Progress</h4>
-                <p className="text-xs text-gray-600 leading-relaxed">
+                <h4 className="text-base sm:text-lg font-bold text-gray-900 font-sans tracking-tight">Self-Paced Progress</h4>
+                <p className="text-sm text-gray-600 leading-relaxed font-sans font-normal">
                   Your progress is saved automatically. You have 1 full year of access to complete your course modules and assessments.
                 </p>
               </div>
 
-              <div className="bg-gray-50 border border-gray-150 rounded-2xl p-5 space-y-2">
-                <div className="w-8 h-8 rounded-lg bg-black text-white text-xs font-mono font-bold flex items-center justify-center">
+              <div className="bg-white border border-gray-200 rounded-2xl p-6 sm:p-7 space-y-3.5 shadow-xs hover:border-gray-300 transition-all">
+                <div className="w-9 h-9 rounded-xl bg-black text-white text-sm font-mono font-bold flex items-center justify-center shrink-0">
                   4
                 </div>
-                <h4 className="text-xs font-bold text-black font-display">Automated DBPR Reporting</h4>
-                <p className="text-xs text-gray-600 leading-relaxed">
+                <h4 className="text-base sm:text-lg font-bold text-gray-900 font-sans tracking-tight">Automated DBPR Reporting</h4>
+                <p className="text-sm text-gray-600 leading-relaxed font-sans font-normal">
                   For Florida licensing education courses, course completion records will be reported directly to the Florida DBPR.
                 </p>
               </div>
@@ -138,17 +138,17 @@ export default function ThankYouView({ onBackToHome, onExploreCourses }: ThankYo
           </div>
 
           {/* Need Help / Support Box */}
-          <div className="bg-gray-50/80 border border-gray-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-gray-600">
-            <div className="flex items-center gap-3">
+          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm font-medium text-gray-600">
+            <div className="flex items-center gap-3.5">
               <Mail className="w-5 h-5 text-emerald-600 shrink-0" />
               <div>
-                <p className="text-black font-bold">Have questions or need login assistance?</p>
-                <p className="text-gray-500">Our student support team is ready to assist you.</p>
+                <p className="text-black font-bold text-sm sm:text-base font-sans">Have questions or need login assistance?</p>
+                <p className="text-gray-500 text-xs sm:text-sm font-sans">Our student support team is ready to assist you.</p>
               </div>
             </div>
             <a
               href="mailto:adriana@upgradedreacademy.com"
-              className="bg-white border border-gray-200 text-black font-bold py-2.5 px-4 rounded-xl hover:bg-gray-100 transition-colors whitespace-nowrap"
+              className="bg-white border border-gray-200 text-black font-bold py-2.5 px-4 rounded-xl hover:bg-gray-100 transition-colors whitespace-nowrap text-xs sm:text-sm font-sans"
             >
               adriana@upgradedreacademy.com
             </a>
