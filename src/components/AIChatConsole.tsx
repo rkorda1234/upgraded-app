@@ -32,7 +32,7 @@ interface WebkitWindow extends Window {
   webkitSpeechRecognition?: new () => SpeechRecognition;
 }
 
-export default function AIChatConsole({ onClose }: { onClose?: () => void }) {
+export default function AIChatConsole({ onClose, initialPrompt }: { onClose?: () => void; initialPrompt?: string }) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
@@ -48,6 +48,7 @@ export default function AIChatConsole({ onClose }: { onClose?: () => void }) {
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const sentInitialPromptsRef = useRef<Set<string>>(new Set());
 
   // Suggestions for quick prompting
   const suggestions = [
@@ -92,6 +93,14 @@ export default function AIChatConsole({ onClose }: { onClose?: () => void }) {
       setRecognition(rec);
     }
   }, []);
+
+  // Auto trigger initial prompt when modal opens
+  useEffect(() => {
+    if (initialPrompt && initialPrompt.trim() && !sentInitialPromptsRef.current.has(initialPrompt)) {
+      sentInitialPromptsRef.current.add(initialPrompt);
+      handleSendMessage(initialPrompt);
+    }
+  }, [initialPrompt]);
 
   // Scroll to bottom of message list
   useEffect(() => {

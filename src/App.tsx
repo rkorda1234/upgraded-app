@@ -211,8 +211,6 @@ export default function App() {
   const handleOpenChatWithPrompt = (prompt?: string) => {
     setChatInitialPrompt(prompt);
     setShowFloatingChat(true);
-    // Also scroll down to the chat panel area to make it obvious
-    scrollToSection(aiAdvisorRef);
   };
 
   return (
@@ -894,6 +892,33 @@ export default function App() {
                   Close Document
                 </button>
               </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Interactive AI Chatbot Popup Modal Overlay */}
+      <AnimatePresence>
+        {showFloatingChat && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowFloatingChat(false)}
+              className="absolute inset-0 bg-black cursor-pointer backdrop-blur-xs"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.4 }}
+              className="relative w-full max-w-2xl z-10"
+            >
+              <AIChatConsole 
+                initialPrompt={chatInitialPrompt} 
+                onClose={() => setShowFloatingChat(false)} 
+              />
             </motion.div>
           </div>
         )}
