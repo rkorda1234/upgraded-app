@@ -29,13 +29,15 @@ import LicensingEducationView from "./components/LicensingEducationView";
 import ProfessionalDevelopmentView from "./components/ProfessionalDevelopmentView";
 import LeadershipView from "./components/LeadershipView";
 import ContactView from "./components/ContactView";
+import PolicyView, { PolicyKey } from "./components/PolicyView";
 import heroVisual from "./assets/images/upgraded_hero_visual_1784582864331.jpg";
 
 export default function App() {
-  const [activeView, setActiveView] = useState<'home' | 'licensing' | 'pro_dev' | 'leadership' | 'contact'>('home');
+  const [activeView, setActiveView] = useState<'home' | 'licensing' | 'pro_dev' | 'leadership' | 'contact' | 'policy'>('home');
   const [showFloatingChat, setShowFloatingChat] = useState(false);
   const [chatInitialPrompt, setChatInitialPrompt] = useState<string | undefined>(undefined);
   const [subscribed, setSubscribed] = useState(false);
+  const [selectedPolicyKey, setSelectedPolicyKey] = useState<PolicyKey>('terms');
   const [activePolicy, setActivePolicy] = useState<string | null>(null);
   
   const learningPathsRef = useRef<HTMLDivElement | null>(null);
@@ -495,13 +497,21 @@ export default function App() {
             }, 100);
           }}
         />
-      ) : (
+      ) : activeView === 'contact' ? (
         <ContactView 
           onExploreCourses={() => {
             setActiveView('home');
             setTimeout(() => {
               scrollToSection(learningPathsRef);
             }, 100);
+          }}
+        />
+      ) : (
+        <PolicyView
+          initialPolicy={selectedPolicyKey}
+          onBack={() => {
+            setActiveView('home');
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }}
         />
       )}
@@ -655,7 +665,19 @@ export default function App() {
                 ].map((policy) => (
                   <li key={policy}>
                     <button
-                      onClick={() => setActivePolicy(policy)}
+                      onClick={() => {
+                        let key: PolicyKey = "terms";
+                        if (policy === "Student Policies") key = "student";
+                        else if (policy === "Course Purchase & Refund Policy") key = "refund";
+                        else if (policy === "Privacy Policy") key = "privacy";
+                        else if (policy === "Terms & Conditions") key = "terms";
+                        else if (policy === "Accessibility Statement") key = "accessibility";
+                        else if (policy === "Cookie Policy") key = "cookie";
+                        
+                        setSelectedPolicyKey(key);
+                        setActiveView("policy");
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
                       className="hover:text-white transition-colors cursor-pointer text-left"
                     >
                       {policy}
