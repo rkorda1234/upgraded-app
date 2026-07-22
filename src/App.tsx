@@ -346,7 +346,7 @@ export default function App() {
           {/* Action Header Button */}
           <div className="flex items-center gap-4">
             <button
-              onClick={() => scrollToSection(aiAdvisorRef)}
+              onClick={() => handleOpenChatWithPrompt()}
               className="bg-black hover:bg-neutral-900 text-white px-5 py-2.5 rounded-full text-xs font-semibold transition-all duration-300 shadow-sm flex items-center gap-1.5 hover:scale-[1.03] active:scale-[0.98] hover:shadow-md cursor-pointer"
             >
               <Sparkles className="w-3.5 h-3.5 text-gray-300" />
